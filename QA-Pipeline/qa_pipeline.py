@@ -1,5 +1,6 @@
 import sys
 from article_database_connection import get_article_summaries
+from qa_pair_generator import get_qa_pairs
 
 def main():
 
@@ -14,10 +15,8 @@ def main():
     # Get articles from database connection
     articles = get_article_summaries(db_index_start, num_articles)
 
-    # Print articles (just to test)
-    for article in articles:
-        print("\n----- START OF NEXT ARTICLE -----\n")
-        print(article)
+    # Generate QA pairs from summaries
+    qa_pairs = get_qa_pairs(articles)
 
 if __name__ == "__main__":
     main()

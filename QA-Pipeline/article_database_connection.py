@@ -1,6 +1,6 @@
 import requests
 
-def get_article_summaries(db_index_start, num_articles):
+def get_article_summaries(db_index_start: int, num_articles: int):
 
     url = "https://datasets-server.huggingface.co/rows"
     params = {
