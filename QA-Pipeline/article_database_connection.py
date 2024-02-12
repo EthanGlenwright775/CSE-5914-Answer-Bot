@@ -19,4 +19,3 @@ def get_article_summaries(db_index_start, num_articles):
         return summaries
     else:
         return None
-    
