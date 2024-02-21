@@ -1,3 +1,0 @@
-[submodule "QA-Pipeline/question_generator"]
-	path = QA-Pipeline/question_generator
-	url = https://github.com/amontgomerie/question_generator
