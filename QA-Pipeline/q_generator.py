@@ -2,7 +2,8 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 tokenizer = AutoTokenizer.from_pretrained("iarfmoose/t5-base-question-generator")
 model = AutoModelForSeq2SeqLM.from_pretrained("iarfmoose/t5-base-question-generator")
 
-def __generate__(answer, context):
+def __generate__(answer: str, context: str):
+        tokenizer.encode
         concat = "<answer> " + answer + " <context> " + context
         concat_tokenized = tokenizer(concat, 
                                         padding="max_length", 
@@ -14,28 +15,32 @@ def __generate__(answer, context):
         return question
 
 
-def generate_questions_multicontext(answer_list, context_list):
+def generate_questions_multicontext(answer_list: list[str], context_list: list[str]) -> dict[str, str]:
 
     if not (isinstance(answer_list, list) and isinstance(context_list, list)): raise RuntimeError("Both Parameters must be lists to use multicontext.")
     if (len(answer_list) != len(context_list)): raise RuntimeError("Answer list length must match Context list length to use multicontext.")
 
-    question_list = []
+    qa_pair_list = {}
 
     for index in range(len(answer_list)):
         question = __generate__(answer_list[index], context_list[index])
-        question_list.append(question)
+        question = question[0]
+        question = question[:question.find("?") + 1]
+        qa_pair_list[question] = answer_list[index]
 
-    return question_list
+    return qa_pair_list
 
-def generate_questions_monocontext(answer_list, context):
+def generate_questions_monocontext(answer_list: list[str], context: str) -> dict[str, str]:
 
     if not isinstance(answer_list, list): raise RuntimeError("Answers must be a List.")
     if not isinstance(context, str): raise RuntimeError("Context must be a single String.")
 
-    question_list = []
+    qa_pair_list = {}
 
     for index in range(len(answer_list)):
         question = __generate__(answer_list[index], context)
-        question_list.append(question)
+        question = question[0]
+        question = question[:question.find("?") + 1]
+        qa_pair_list[question] = answer_list[index]
 
-    return question_list
+    return qa_pair_list

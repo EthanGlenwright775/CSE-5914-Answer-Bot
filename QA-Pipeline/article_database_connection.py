@@ -2,7 +2,7 @@ import requests
 
 URL = "https://datasets-server.huggingface.co/rows"
 
-def get_article_summaries(db_index_start, num_articles):
+def get_article_summaries(db_index_start, num_articles) -> list[str]:
     params = {
         "dataset": "multi_news",
         "config": "default",
@@ -20,7 +20,7 @@ def get_article_summaries(db_index_start, num_articles):
     else:
         return None
     
-def get_article_documents(db_index_start, num_articles):
+def get_article_documents(db_index_start, num_articles) -> list[str]:
     params = {
         "dataset": "multi_news",
         "config": "default",
