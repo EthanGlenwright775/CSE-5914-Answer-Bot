@@ -1,7 +1,7 @@
 import requests
 
 URL = "https://datasets-server.huggingface.co/rows"
-DATASET = "dataset=AyoubChLin%2FCNN_News_Articles_2011-2022"
+DATASET = "AyoubChLin/CNN_News_Articles_2011-2022"
 CONFIG = "default"
 SPLIT = "train"
 LENGTH = 1

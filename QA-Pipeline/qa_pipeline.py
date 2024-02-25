@@ -2,7 +2,7 @@ import sys
 import threading
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
-from qa_db_storage import qa_database_storage
+from qa_db_storage import qa_database_storage, eof_qa_database
 
 num_threads = 10
 lock = threading.Lock()
@@ -27,11 +27,11 @@ def qa_pipeline_thread_task():
 
         # Get article from article db
         article = get_article(db_index)
-        print(f"THREAD w/ db_index {db_index} has article: {article}")
+        print(f"THREAD w/ db_index {db_index} has article")
 
         # Generate context-QA pairs from article
         context_qa_pairs = generate_qa_pairs(article)
-        print(f"THREAD w/ db_index {db_index} has context_qa_pairs: {context_qa_pairs}")
+        print(f"THREAD w/ db_index {db_index} has context_qa_pairs")
 
         # Store context-QA pairs in QA db
         qa_database_storage(context_qa_pairs, db_index - db_index_start)
@@ -58,6 +58,9 @@ def main():
     # Wait for all threads to rejoin main thread
     for i in range(num_threads):
         pipeline_threads[i].join()
+    
+    # Write EOF for QA database file
+    eof_qa_database()
 
 if __name__ == "__main__":
     main()
