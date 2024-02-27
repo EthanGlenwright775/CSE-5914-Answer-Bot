@@ -1,6 +1,7 @@
 import sys
 import threading
 import time
+import torch
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
 from qa_db_storage import qa_database_storage, eof_qa_database
@@ -49,7 +50,13 @@ def main():
         global num_threads 
         num_threads = int(sys.argv[3])
 
-    # Keep track of time
+    # Check for CUDA
+    if torch.cuda.is_available():
+        print("CUDA is available")
+    else:
+        print("CUDA is not available")
+
+    # Keep track of time at start of work
     start_time = time.time()
 
     # Create and start threads -> 1 thread takes 1 article through pipeline
@@ -66,8 +73,8 @@ def main():
     eof_qa_database()
 
     # Print total time
-    total_runtime = time.time() - start_time
-    print(f"QA_PIPELINE completed all tasks in {total_runtime}")
+    total_runtime = round(time.time() - start_time, 2)
+    print(f"QA_PIPELINE completed all tasks in {total_runtime} seconds")
 
 if __name__ == "__main__":
     main()

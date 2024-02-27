@@ -2,7 +2,6 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(device)
 tokenizer = AutoTokenizer.from_pretrained("iarfmoose/t5-base-question-generator")
 model = AutoModelForSeq2SeqLM.from_pretrained("iarfmoose/t5-base-question-generator")
 model = model.to(device)
