@@ -1,5 +1,7 @@
 from rephraser import rephrase
 from q_generator import generate_questions_monocontext
+import nltk
+nltk.download('punkt', quiet=True)
 from nltk.tokenize import sent_tokenize
 
 def generate_qa_pairs(text: str) -> dict[str, any]:

@@ -1,5 +1,6 @@
 import sys
 import threading
+import time
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
 from qa_db_storage import qa_database_storage, eof_qa_database
@@ -27,15 +28,15 @@ def qa_pipeline_thread_task():
 
         # Get article from article db
         article = get_article(db_index)
-        print(f"THREAD w/ db_index {db_index} has article")
+        print(f"THREAD w/ db_index {db_index} has context")
 
         # Generate context-QA pairs from article
         context_qa_pairs = generate_qa_pairs(article)
-        print(f"THREAD w/ db_index {db_index} has context_qa_pairs")
+        print(f"THREAD w/ db_index {db_index} has context and qa_pairs")
 
         # Store context-QA pairs in QA db
         qa_database_storage(context_qa_pairs, db_index - db_index_start)
-
+        print(f"THREAD w/ db_index {db_index} has stored its context and qa_pairs in the DB")
 
 def main():
 
@@ -47,7 +48,9 @@ def main():
         starting_articles = int(sys.argv[2])
         global num_threads 
         num_threads = int(sys.argv[3])
-    
+
+    # Keep track of time
+    start_time = time.time()
 
     # Create and start threads -> 1 thread takes 1 article through pipeline
     pipeline_threads = []
@@ -61,6 +64,10 @@ def main():
     
     # Write EOF for QA database file
     eof_qa_database()
+
+    # Print total time
+    total_runtime = time.time() - start_time
+    print(f"QA_PIPELINE completed all tasks in {total_runtime}")
 
 if __name__ == "__main__":
     main()
