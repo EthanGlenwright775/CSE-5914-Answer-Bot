@@ -33,7 +33,7 @@ def qa_pipeline_thread_task():
 
         # Generate context-QA pairs from article
         context_qa_pairs = generate_qa_pairs(article)
-        print(f"THREAD w/ db_index {db_index} has context and qa_pairs")
+        print(f"THREAD w/ db_index {db_index} has qa_pairs")
 
         # Store context-QA pairs in QA db
         qa_database_storage(context_qa_pairs, db_index - db_index_start)
@@ -55,6 +55,9 @@ def main():
         print("CUDA is available")
     else:
         print("CUDA is not available")
+
+    # QA Pipeline Start
+    print("QA_PIPELINE started tasks")
 
     # Keep track of time at start of work
     start_time = time.time()

@@ -7,7 +7,6 @@ model = AutoModelForSeq2SeqLM.from_pretrained("iarfmoose/t5-base-question-genera
 model = model.to(device)
 
 def __generate__(answer: str, context: str) -> list[dict[str, str]]:
-        tokenizer.encode
         concat = "<answer> " + answer + " <context> " + context
         concat_tokenized = tokenizer(concat, 
                                         padding="max_length", 
