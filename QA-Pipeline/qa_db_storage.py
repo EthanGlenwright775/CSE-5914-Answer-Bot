@@ -2,7 +2,7 @@ import os
 import json
 import threading
 
-JSON_PATH = os.path.join("Output", "pipeline_output.json")
+JSON_PATH = os.path.join("QA-Output", "pipeline_output.json")
 TRAINING_PATH = os.path.join("QA-Output", "training.csv")
 VALIDATION_PATH = os.path.join("QA-Output", "validation.csv")
 TESTING_PATH = os.path.join("QA-Output", "testing.csv")
@@ -19,6 +19,8 @@ validation_count = 0
 testing_count = 0
 SPLIT = 8 # 80 - 10 - 10 (training - validation - testing) split of qa pairs
 
+first_json = True
+
 # done before threading
 def pre_storage():
     with open(JSON_PATH, "w") as file:
@@ -31,21 +33,29 @@ def pre_storage():
         file.write("context, target\n")
 
 # each thread will store its items in json and csv
-def qa_database_storage(context_pairs: dict[str, dict[str, str]], context_id: int):
+def qa_database_storage(context_pairs: dict[str, any], context_id: int):
     json_storage(context_pairs, context_id)
     csv_storage(context_pairs)
 
-def json_storage(context_pairs: dict[str, dict[str, str]], context_id: int):
+def json_storage(context_pairs: dict[str, any], context_id: int):
+    global first_json
     id = context_id
     context = context_pairs.get("context")
     qa_pairs = context_pairs.get("qa_pairs")
     with output_json_lock:
         with open(JSON_PATH, "a") as json_file:
-            json_file.write(",\n")
+            if first_json:
+                first_json = False
+            else:
+                json_file.write(",\n")
             json_file.write(json.dumps({"id": id, "context": context, "qa_pairs": qa_pairs}, indent=4))
 
-def csv_storage(context_pairs: dict[str, dict[str, str]]):
+def csv_storage(context_pairs: dict[str, any]):
+    global training_count
+    global validation_count
+    global testing_count
     context = context_pairs.get("context")
+    context.replace("\t", " ")
     for pair in context_pairs.get("qa_pairs"):
         question = pair.get("question")
         answer = pair.get("answer")
@@ -64,7 +74,7 @@ def csv_storage(context_pairs: dict[str, dict[str, str]]):
                 testing_count += SPLIT
         with lock:
             with open(path, "a") as csv_file:
-                csv_file.write(f"{context}; {question}, {answer}")
+                csv_file.write(f"{context};{question}\t{answer}")
 
 # done after threading
 def post_storage():

@@ -1,0 +1,3 @@
+db_index_start=100
+article_count=1
+thread_count=1

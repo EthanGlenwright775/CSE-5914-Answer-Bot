@@ -6,10 +6,10 @@ from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
 from qa_db_storage import pre_storage, qa_database_storage, post_storage
 
-num_threads = 10
+num_threads = 1
 lock = threading.Lock()
 db_index_start = 0
-starting_articles = 10
+starting_articles = 1
 taken_articles = 0
 
 def qa_pipeline_thread_task():
