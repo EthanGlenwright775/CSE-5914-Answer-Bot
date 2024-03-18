@@ -4,7 +4,7 @@ import time
 import torch
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
-from qa_db_storage import qa_database_storage, eof_qa_database
+from qa_db_storage import pre_storage, qa_database_storage, post_storage
 
 num_threads = 10
 lock = threading.Lock()
@@ -62,6 +62,9 @@ def main():
     # Keep track of time at start of work
     start_time = time.time()
 
+    # Ready output files
+    pre_storage()
+
     # Create and start threads -> 1 thread takes 1 article through pipeline
     pipeline_threads = []
     for i in range(num_threads):
@@ -72,8 +75,8 @@ def main():
     for i in range(num_threads):
         pipeline_threads[i].join()
     
-    # Write EOF for QA database file
-    eof_qa_database()
+    # Finish output files
+    post_storage()
 
     # Print total time
     total_runtime = round(time.time() - start_time, 2)
