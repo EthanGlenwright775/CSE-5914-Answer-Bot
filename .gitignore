@@ -1,4 +1,3 @@
 __pycache__/
 .env
 .vscode
-./QA-Output/testing.csv
