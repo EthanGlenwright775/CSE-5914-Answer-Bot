@@ -37,7 +37,7 @@ def qa_pipeline_thread_task():
 
         # Store context-QA pairs in QA db
         qa_database_storage(context_qa_pairs, db_index - db_index_start)
-        print(f"THREAD w/ db_index {db_index} has stored its context and qa_pairs in the DB")
+        print(f"THREAD w/ db_index {db_index} has stored its context and qa_pairs in QA-Output")
 
 def main():
 
