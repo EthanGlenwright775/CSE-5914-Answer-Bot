@@ -7,7 +7,7 @@ model = T5ForConditionalGeneration.from_pretrained("unikei/t5-base-split-and-rep
 model = model.to(device)
 
 def rephrase(text: str) -> str:
-    text_tokenized = tokenizer(text, 
+    text_tokenized = tokenizer(text=text, 
                                  padding="max_length", 
                                  truncation=True,
                                  max_length=256, 

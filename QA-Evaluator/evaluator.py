@@ -23,7 +23,7 @@ def __generate_question_stats__(f_in, f_out, win_size):
     print("MSTTR " + str(win_size) +": ", msttr)
     print("MATTR " + str(win_size) +": ", mattr)
 
-    with open(f_out, "a") as file_out:
+    with open(f_out, "w") as file_out:
         file_out.write("Dataset metrics\n")
         file_out.write("MTLD:       " + str(mtld) + "\n")
         file_out.write("Simple TTR: " + str(ttr) + "\n")
