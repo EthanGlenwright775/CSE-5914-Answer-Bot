@@ -54,17 +54,16 @@ def csv_storage(context_pairs: dict[str, any]):
     global training_count
     global validation_count
     global testing_count
-    context = context_pairs.get("context")
-    context.replace("\t", " ")
+    article = context_pairs.get("context")
     for pair in context_pairs.get("qa_pairs"):
         question = pair.get("question")
         answer = pair.get("answer")
         with count_lock:
-            if training_count < validation_count and training_count < testing_count:
+            if training_count < validation_count or training_count < testing_count:
                 path = TRAINING_PATH
                 lock = training_csv_lock
                 training_count += 1
-            elif validation_count < training_count and validation_count < testing_count:
+            elif validation_count < training_count or validation_count < testing_count:
                 path = VALIDATION_PATH
                 lock = validation_csv_lock
                 validation_count += SPLIT
@@ -74,7 +73,7 @@ def csv_storage(context_pairs: dict[str, any]):
                 testing_count += SPLIT
         with lock:
             with open(path, "a") as csv_file:
-                csv_file.write(f"{context};{question}\t{answer}")
+                csv_file.write(f"{article};{question},{answer}\n")
 
 # done after threading
 def post_storage():

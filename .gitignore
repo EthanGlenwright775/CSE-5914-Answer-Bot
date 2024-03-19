@@ -1,3 +1,8 @@
 __pycache__/
 .env
 .vscode
+QA-Output/data_diversity_scores.txt
+QA-Output/pipeline_output.json
+QA-Output/testing.csv
+QA-Output/training.csv
+QA-Output/validation.csv
