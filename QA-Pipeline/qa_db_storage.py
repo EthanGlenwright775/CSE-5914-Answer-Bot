@@ -3,9 +3,9 @@ import json
 import threading
 
 JSON_PATH = os.path.join("QA-Output", "pipeline_output.json")
-TRAINING_PATH = os.path.join("QA-Output", "training.csv")
-VALIDATION_PATH = os.path.join("QA-Output", "validation.csv")
-TESTING_PATH = os.path.join("QA-Output", "testing.csv")
+TRAINING_PATH = os.path.join("QA-Output", "training.tsv")
+VALIDATION_PATH = os.path.join("QA-Output", "validation.tsv")
+TESTING_PATH = os.path.join("QA-Output", "testing.tsv")
 
 output_json_lock = threading.Lock()
 training_csv_lock = threading.Lock()
@@ -26,11 +26,11 @@ def pre_storage():
     with open(JSON_PATH, "w") as file:
         file.write("[\n")
     with open(TRAINING_PATH, "w") as file:
-        file.write("context, target\n")
+        file.write("context\ttarget\n")
     with open(VALIDATION_PATH, "w") as file:
-        file.write("context, target\n")
+        file.write("context\ttarget\n")
     with open(TESTING_PATH, "w") as file:
-        file.write("context, target\n")
+        file.write("context\ttarget\n")
 
 # each thread will store its items in json and csv
 def qa_database_storage(context_pairs: dict[str, any], context_id: int):
@@ -59,21 +59,21 @@ def csv_storage(context_pairs: dict[str, any]):
         question = pair.get("question")
         answer = pair.get("answer")
         with count_lock:
-            if training_count < validation_count or training_count < testing_count:
-                path = TRAINING_PATH
-                lock = training_csv_lock
-                training_count += 1
+            if testing_count < training_count or testing_count < validation_count:
+                path = TESTING_PATH
+                lock = testing_csv_lock
+                testing_count += SPLIT
             elif validation_count < training_count or validation_count < testing_count:
                 path = VALIDATION_PATH
                 lock = validation_csv_lock
                 validation_count += SPLIT
             else:
-                path = TESTING_PATH
-                lock = testing_csv_lock
-                testing_count += SPLIT
+                path = TRAINING_PATH
+                lock = training_csv_lock
+                training_count += 1
         with lock:
             with open(path, "a") as csv_file:
-                csv_file.write(f"{article};{question},{answer}\n")
+                csv_file.write(f"Use the following article to answer the question: Article: {article} Question: {question}\t{answer}\n")
 
 # done after threading
 def post_storage():
