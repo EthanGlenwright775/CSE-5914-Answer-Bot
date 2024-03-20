@@ -9,10 +9,10 @@ model = model.to(device)
 def __generate__(answer: str, context: str) -> list[dict[str, str]]:
         concat = "<answer> " + answer + " <context> " + context
         concat_tokenized = tokenizer(concat, 
-                                        padding="max_length", 
-                                        truncation=True,
-                                        max_length=256, 
-                                        return_tensors='pt').to(device)
+            padding="max_length", 
+            truncation=True,
+            max_length=512, 
+            return_tensors='pt').to(device)
         question_tokenized = model.generate(concat_tokenized['input_ids'], attention_mask = concat_tokenized['attention_mask'], max_length=256, num_beams=5)
         question = tokenizer.batch_decode(question_tokenized, skip_special_tokens=True)
         return question
