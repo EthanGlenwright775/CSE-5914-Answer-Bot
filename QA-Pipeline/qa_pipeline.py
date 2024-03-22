@@ -4,13 +4,13 @@ import time
 import torch
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
-from qa_db_storage import qa_database_storage, eof_qa_database
+from qa_db_storage import pre_storage, qa_database_storage, post_storage
 
 
-num_threads = 10
+num_threads = 1
 lock = threading.Lock()
 db_index_start = 0
-starting_articles = 10
+starting_articles = 1
 taken_articles = 0
 
 def qa_pipeline_thread_task():
@@ -34,11 +34,11 @@ def qa_pipeline_thread_task():
 
         # Generate context-QA pairs from article
         context_qa_pairs = generate_qa_pairs(article)
-        print(f"THREAD w/ db_index {db_index} has context and qa_pairs")
-            
+
+        print(f"THREAD w/ db_index {db_index} has qa_pairs")
         # Store context-QA pairs in QA db
         qa_database_storage(context_qa_pairs, db_index - db_index_start)
-        print(f"THREAD w/ db_index {db_index} has stored its context and qa_pairs in the DB")
+        print(f"THREAD w/ db_index {db_index} has stored its context and qa_pairs in QA-Output")
 
 def main():
 
@@ -57,8 +57,14 @@ def main():
     else:
         print("CUDA is not available")
 
+    # QA Pipeline Start
+    print("QA_PIPELINE started tasks")
+
     # Keep track of time at start of work
     start_time = time.time()
+
+    # Ready output files
+    pre_storage()
 
     # Create and start threads -> 1 thread takes 1 article through pipeline
     pipeline_threads = []
@@ -70,8 +76,8 @@ def main():
     for i in range(num_threads):
         pipeline_threads[i].join()
     
-    # Write EOF for QA database file
-    eof_qa_database()
+    # Finish output files
+    post_storage()
 
     # Print total time
     total_runtime = round(time.time() - start_time, 2)
