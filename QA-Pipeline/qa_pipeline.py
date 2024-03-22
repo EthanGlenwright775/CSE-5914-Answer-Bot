@@ -6,6 +6,7 @@ from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
 from qa_db_storage import pre_storage, qa_database_storage, post_storage
 
+
 num_threads = 1
 lock = threading.Lock()
 db_index_start = 0
@@ -33,8 +34,8 @@ def qa_pipeline_thread_task():
 
         # Generate context-QA pairs from article
         context_qa_pairs = generate_qa_pairs(article)
-        print(f"THREAD w/ db_index {db_index} has qa_pairs")
 
+        print(f"THREAD w/ db_index {db_index} has qa_pairs")
         # Store context-QA pairs in QA db
         qa_database_storage(context_qa_pairs, db_index - db_index_start)
         print(f"THREAD w/ db_index {db_index} has stored its context and qa_pairs in QA-Output")
