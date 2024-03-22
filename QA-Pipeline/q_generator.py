@@ -5,6 +5,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 tokenizer = AutoTokenizer.from_pretrained("iarfmoose/t5-base-question-generator")
 model = AutoModelForSeq2SeqLM.from_pretrained("iarfmoose/t5-base-question-generator")
 model = model.to(device)
+tokenizer_eval = AutoTokenizer.from_pretrained("iarfmoose/bert-base-cased-qa-evaluator")
+model_eval = AutoModelForSequenceClassification.from_pretrained("iarfmoose/bert-base-cased-qa-evaluator")
+model_eval = model_eval.to(device)
+Q_EVAL_THRESHOLD = 1
 
 def __generate__(answer: str, context: str) -> list[dict[str, str]]:
         tokenizer.encode
@@ -35,21 +39,16 @@ def generate_questions_multicontext(answer_list: list[str], context_list: list[s
     return qa_pair_list
 
 def eval_qa_pair(q, a, threshold):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    tokenizer = AutoTokenizer.from_pretrained("iarfmoose/bert-base-cased-qa-evaluator")
-    model = AutoModelForSequenceClassification.from_pretrained("iarfmoose/bert-base-cased-qa-evaluator")
-    model = model.to(device)
-
-    encoded_input = tokenizer(text=q, text_pair=a, truncation=True, return_tensors="pt")
-    output = model(**encoded_input)
+    encoded_input = tokenizer_eval(text=q, text_pair=a, truncation=True, return_tensors="pt")
+    output = model_eval(**encoded_input)
     output = output[0][0][1].item()
 
     if output > threshold:
         return True
     else:
-        print("q: " + q)
-        print("a: " + a)
-        print("score: " + output)
+        # print("q: " + q)
+        # print("a: " + a)
+        # print("score: " + output)
         return False
 
 
@@ -65,7 +64,7 @@ def generate_questions_monocontext(answer_list: list[str], context: str) -> list
         question = __generate__(answer, context)
         question = question[0]
         question = question[:question.find("?") + 1]
-        if eval_qa_pair(question,answer, 1):
+        if eval_qa_pair(question,answer, Q_EVAL_THRESHOLD):
             qa_pair_list.append({"question": question, "answer": answer})
 
     return qa_pair_list
