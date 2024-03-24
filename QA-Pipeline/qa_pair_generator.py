@@ -21,6 +21,7 @@ def generate_qa_pairs(text: str) -> dict[str, any]:
     text_pairs = {}
     qa_pairs = []
 
+    text = re.sub(r'[\t\n]', '', text)
     chunks = chunk_text(text, 200, 10)
     for i in range(len(chunks)):
         phrases = sent_tokenize((rephrase(chunks[i])))
@@ -31,7 +32,6 @@ def generate_qa_pairs(text: str) -> dict[str, any]:
 
     text_pairs.update({"context": text, "qa_pairs": qa_pairs})
 
-    # text = re.sub(r'[\t\n]', '', text)
     # phrases = sent_tokenize(rephrase(text))
     # qa_pairs = generate_questions_monocontext(phrases, text)
     # text_pairs = {"context": text, "qa_pairs": qa_pairs}
