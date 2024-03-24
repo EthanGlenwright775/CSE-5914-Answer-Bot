@@ -1,3 +1,4 @@
 db_index_start=100
 article_count=3
 thread_count=3
+q_eval_threshold=1
