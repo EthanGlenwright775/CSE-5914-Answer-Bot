@@ -59,6 +59,7 @@ def generate_questions_monocontext(answer_list: list[str], context: str) -> list
         question = __generate__(answer, context)
         question = question[0]
         question = question[:question.find("?") + 1]
+        #print(f"Context: {context}\nQuestion: {question}\nAnswer: {answer}")
         count_questions()
         if eval_qa_pair(question,answer):
             qa_pair_list.append({"question": question, "answer": answer})
