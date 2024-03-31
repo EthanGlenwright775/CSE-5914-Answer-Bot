@@ -5,7 +5,7 @@ import torch
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
 from qa_db_storage import pre_storage, qa_database_storage, post_storage
-from q_generator import set_q_eval_threshold, print_q_eval_stats
+from q_generator_2 import set_q_eval_threshold, print_q_eval_stats
 
 num_threads = 1
 lock = threading.Lock()
