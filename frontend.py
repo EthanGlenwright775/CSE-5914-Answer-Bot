@@ -11,7 +11,7 @@ def send_message():
     message = request.form['message']
     # Process the message (e.g., send to chatbot model)
     # For demonstration, let's echo the message back
-    return {'message': message}
+    return {'message': "thanks for saying that!"}
 
 if __name__ == '__main__':
     app.run(debug=True)
