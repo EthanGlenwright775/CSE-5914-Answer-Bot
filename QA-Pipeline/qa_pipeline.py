@@ -5,7 +5,7 @@ import torch
 from cnn_news_db_connection import get_article
 from qa_pair_generator import generate_qa_pairs
 from qa_db_storage import pre_storage, qa_database_storage, post_storage
-from q_generator_2 import set_q_eval_threshold, print_q_eval_stats
+import bert_evaluator
 
 num_threads = 1
 lock = threading.Lock()
@@ -49,7 +49,7 @@ def main():
     starting_articles = int(sys.argv[2])
     global num_threads 
     num_threads = int(sys.argv[3])
-    set_q_eval_threshold(int(sys.argv[4]))
+    bert_evaluator.set_q_eval_threshold(int(sys.argv[4]))
 
     # Check for CUDA
     if torch.cuda.is_available():
@@ -80,7 +80,7 @@ def main():
     post_storage()
 
     # Print Q Eval Stats
-    print_q_eval_stats()
+    bert_evaluator.print_q_eval_stats()
 
     # Print total time
     total_runtime = round(time.time() - start_time, 2)

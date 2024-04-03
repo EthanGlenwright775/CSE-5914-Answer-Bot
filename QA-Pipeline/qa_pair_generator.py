@@ -1,6 +1,7 @@
 from rephraser import rephrase
 from q_generator_2 import generate_question_plusanswer
 from summarizer import summarize
+import bert_evaluator
 import nltk
 import re
 
@@ -45,6 +46,15 @@ def prune_duplicates(list):
         match_index += 1
     return list
 
+def threshold_eval(list):
+    new_list = []
+    for pair in list:
+        bert_evaluator.count_questions()
+        if len(pair.get('answer')) > 0 and len(pair.get('question')) > 0 and bert_evaluator.eval_qa_pair(pair.get('question'), pair.get('answer')):
+            new_list.append(pair)
+        else: bert_evaluator.count_rejected_questions()
+    return new_list
+
 def generate_qa_pairs(text: str) -> dict[str, any]:
     qa_pairs = []
 
@@ -64,6 +74,7 @@ def generate_qa_pairs(text: str) -> dict[str, any]:
         qa_pairs += generate_question_plusanswer(summarized_chunk)
 
     qa_pairs = prune_duplicates(qa_pairs)
+    qa_pairs = threshold_eval(qa_pairs)
         
     text_pairs = {"context": text, "qa_pairs": qa_pairs}
 
