@@ -17,7 +17,7 @@ count_lock = threading.Lock()
 training_count = 0
 validation_count = 0
 testing_count = 0
-SPLIT = 8 # 80 - 10 - 10 (training - validation - testing) split of qa pairs
+RATIO = 8 # 80 - 10 - 10 (training - validation - testing) split of qa pairs
 
 first_json = True
 
@@ -55,24 +55,28 @@ def csv_storage(context_pairs: dict[str, any]):
     global validation_count
     global testing_count
     article = context_pairs.get("context")
-    for pair in context_pairs.get("qa_pairs"):
-        question = pair.get("question")
-        answer = pair.get("answer")
-        with count_lock:
-            if testing_count < training_count or testing_count < validation_count:
-                path = TESTING_PATH
-                lock = testing_csv_lock
-                testing_count += SPLIT
-            elif validation_count < training_count or validation_count < testing_count:
-                path = VALIDATION_PATH
-                lock = validation_csv_lock
-                validation_count += SPLIT
-            else:
-                path = TRAINING_PATH
-                lock = training_csv_lock
-                training_count += 1
-        with lock:
-            with open(path, "a") as csv_file:
+    qa_pairs = context_pairs.get("qa_pairs")
+    with count_lock:
+        if testing_count < (training_count + validation_count + testing_count) / RATIO:
+            path = TESTING_PATH
+            lock = testing_csv_lock
+            testing_count += len(qa_pairs)
+            print(f"Testing Count: {testing_count}")
+        elif validation_count < (training_count + validation_count + testing_count) / RATIO:
+            path = VALIDATION_PATH
+            lock = validation_csv_lock
+            validation_count += len(qa_pairs)
+            print(f"Validation Count: {validation_count}")
+        else:
+            path = TRAINING_PATH
+            lock = training_csv_lock
+            training_count += len(qa_pairs)
+            print(f"Training Count: {training_count}")
+    with lock:
+        with open(path, "a") as csv_file:
+            for qa_pair in qa_pairs:
+                question = qa_pair.get("question")
+                answer = qa_pair.get("answer")
                 csv_file.write(f"Use the following article to answer the question: Article: {article} Question: {question}\t{answer}\n")
 
 # done after threading
