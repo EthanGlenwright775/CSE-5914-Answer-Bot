@@ -1,4 +1,5 @@
 import requests
+import sys
 
 URL = "https://datasets-server.huggingface.co/rows"
 DATASET = "AyoubChLin/CNN_News_Articles_2011-2022"
@@ -21,4 +22,5 @@ def get_article(db_index: int) -> str:
         data = response.json()
         return data["rows"][0]["row"]["text"]
     else:
-        return None
+        print(f"Error grabbing article with db index {db_index}")
+        sys.exit(1)

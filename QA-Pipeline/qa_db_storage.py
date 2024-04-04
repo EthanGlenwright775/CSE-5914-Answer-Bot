@@ -61,17 +61,17 @@ def csv_storage(context_pairs: dict[str, any]):
             path = TESTING_PATH
             lock = testing_csv_lock
             testing_count += len(qa_pairs)
-            print(f"Testing Count: {testing_count}")
+            #print(f"Testing Count: {testing_count}")
         elif validation_count < (training_count + validation_count + testing_count) / RATIO:
             path = VALIDATION_PATH
             lock = validation_csv_lock
             validation_count += len(qa_pairs)
-            print(f"Validation Count: {validation_count}")
+            #print(f"Validation Count: {validation_count}")
         else:
             path = TRAINING_PATH
             lock = training_csv_lock
             training_count += len(qa_pairs)
-            print(f"Training Count: {training_count}")
+            #print(f"Training Count: {training_count}")
     with lock:
         with open(path, "a") as csv_file:
             for qa_pair in qa_pairs:
