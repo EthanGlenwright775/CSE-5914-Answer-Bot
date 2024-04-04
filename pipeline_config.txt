@@ -1,4 +1,4 @@
 db_index_start=1000
-article_count=10
-thread_count=10
+article_count=5
+thread_count=5
 q_eval_threshold=1

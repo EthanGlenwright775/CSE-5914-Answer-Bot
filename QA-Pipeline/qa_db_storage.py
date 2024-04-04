@@ -23,18 +23,28 @@ first_json = True
 
 # done before threading
 def pre_storage():
-    with open(JSON_PATH, "w") as file:
-        file.write("[\n")
-    with open(TRAINING_PATH, "w") as file:
-        file.write("context\ttarget\n")
-    with open(VALIDATION_PATH, "w") as file:
-        file.write("context\ttarget\n")
-    with open(TESTING_PATH, "w") as file:
-        file.write("context\ttarget\n")
+    json_exists = os.path.isfile(JSON_PATH)
+    tsv_exists = os.path.isfile(TRAINING_PATH) and os.path.isfile(VALIDATION_PATH) and os.path.isfile(TESTING_PATH)
+    if not (tsv_exists and json_exists):
+        with open(JSON_PATH, "w") as file:
+            file.write("[\n")
+        with open(TRAINING_PATH, "w") as file:
+            file.write("context\ttarget\n")
+        with open(VALIDATION_PATH, "w") as file:
+            file.write("context\ttarget\n")
+        with open(TESTING_PATH, "w") as file:
+            file.write("context\ttarget\n")
+    #else:
+    #    with open(JSON_PATH, "r") as file:
+    #        data = file.read().strip()
+    #        if data.endswith(']'):
+    #            data = data[:-1]
+    #    with open(JSON_PATH, "w") as file:
+    #        file.write(data)
 
 # each thread will store its items in json and csv
 def qa_database_storage(context_pairs: dict[str, any], context_id: int):
-    json_storage(context_pairs, context_id)
+    #json_storage(context_pairs, context_id)
     csv_storage(context_pairs)
 
 def json_storage(context_pairs: dict[str, any], context_id: int):
@@ -82,4 +92,4 @@ def csv_storage(context_pairs: dict[str, any]):
 # done after threading
 def post_storage():
     with open(JSON_PATH, "a") as json_file:
-        json_file.write("\n]")
+        json_file.write("]")

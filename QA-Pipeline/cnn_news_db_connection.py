@@ -6,6 +6,7 @@ DATASET = "AyoubChLin/CNN_News_Articles_2011-2022"
 CONFIG = "default"
 SPLIT = "train"
 LENGTH = 1
+MAX_RETRIES = 10
 
 def get_article(db_index: int) -> str:
     params = {
@@ -16,11 +17,14 @@ def get_article(db_index: int) -> str:
         "length": LENGTH
     }
 
-    response = requests.get(URL, params=params)
+    for attempt in range(MAX_RETRIES):
+        response = requests.get(URL, params=params)
 
-    if response.status_code == 200:
-        data = response.json()
-        return data["rows"][0]["row"]["text"]
-    else:
-        print(f"Error grabbing article with db index {db_index}")
-        sys.exit(1)
+        if response.status_code == 200:
+            data = response.json()
+            return data["rows"][0]["row"]["text"]
+        else:
+            print(f"Error grabbing article with db index {db_index}: Attempt {attempt+1}/{MAX_RETRIES}")
+
+    print(f"Thread w/ db index {db_index} failed to retrieve context")
+    sys.exit(1)
