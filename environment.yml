@@ -1,4 +1,4 @@
-name: cosi_gpu
+name: training_1
 channels:
   - pytorch
   - nvidia
@@ -199,4 +199,4 @@ dependencies:
       - psutil==5.9.6
       - rank-bm25==0.2.2
       - safetensors==0.4.0
-prefix: /home/hussain.97/anaconda3/envs/cosi_gpu
+prefix: /users/PAS2661/glenwright4/.conda/envs/training_1

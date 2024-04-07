@@ -7,3 +7,5 @@ QA-Output/pipeline_output.json
 QA-Output/testing.tsv
 QA-Output/training.tsv
 QA-Output/validation.tsv
+wandb/
+QA-Bot/

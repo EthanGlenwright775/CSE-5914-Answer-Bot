@@ -23,69 +23,6 @@ from pdb import set_trace as bp
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print('Using device:', device)
-torch.set_float32_matmul_precision('medium')
-
-def rawDataToDataSplits(args, preSplit=False):
-
-	def processBigJson():
-		outArray = []
-		exampleEncoded = 0
-		for arbLabel, arbGroup in examplesDict.items():
-			for convoNum, convoTurns in arbGroup.items():
-				for turnIdx, turn in enumerate(convoTurns):
-					user = turn[0]
-					if 'Guide' in user and turnIdx > 0:
-						speaker, response, evidence = turn
-						target = speaker + ": " + response
-						trueTurns = numTurns*2
-						aggText = [turn[0] + ": " + turn[1] for turn in convoTurns[max(0, turnIdx-trueTurns):turnIdx]]
-						context = " >> ".join(aggText)
-
-						path = arbLabel + "/" + str(convoNum) + "/" + str(turnIdx)
-
-						# Grabs gold evidence ids
-						matchedEvidenceIds = []
-						matchedEvidenceText = []
-						for evidenceIdx, evidenceVal in enumerate(evidence):
-							if type(evidenceVal) == list:
-								evidenceTitle = evidence[evidenceIdx-1].replace("_", "-")
-								for idVal in evidenceVal:
-									outId = evidenceTitle + "_" + str(idVal)
-									matchedEvidenceIds.append(outId)
-									if args['use_topics']:
-										matchedEvidenceText.append(" ".join(evidenceDf[evidenceDf['document'] == evidenceTitle]['text']))
-									else:
-										matchedEvidenceText.append(evidenceDf[evidenceDf['combinedId'] == outId]['text'].values[0])
-
-						# TODO: Modify context and targets as needed
-						outArray.append({"context": context, "target": target, "goldEvidenceIds": matchedEvidenceIds, 'evidenceText': matchedEvidenceText, 'examplePath': path})
-		return outArray
-
-	numTurns = args['num_turns']
-	evidenceFile = args['evidence_data']
-
-	evidenceDf = pd.read_csv(evidenceFile, sep='\t')
-	
-	if not preSplit:
-		outArray = processBigJson()
-		with open(args['raw_examples'], 'r') as fin:
-				examplesDict = json.load(fin)
-		# Split into train, dev, test
-		np.random.seed(args['data_seed'])
-		np.random.shuffle(outArray)
-		trainRatio = 1 - (2*args['dev_ratio'])
-		trainData = outArray[:int(trainRatio*len(outArray))]
-		devData = outArray[int(trainRatio*len(outArray)):int((trainRatio + args['dev_ratio'])*len(outArray))]
-		testData = outArray[int((trainRatio + args['dev_ratio'])*len(outArray)):]
-
-	trainDf = pd.DataFrame(trainData)
-	devDf = pd.DataFrame(devData)
-	testDf = pd.DataFrame(testData)
-	
-	trainDf.to_csv(args['train_data'], sep='\t', index=False)
-	devDf.to_csv(args['dev_data'], sep='\t', index=False)
-	testDf.to_csv(args['test_data'], sep='\t', index=False)
-	return trainData, devData, testData
 
 class CosiDataset(Dataset):
 	def __init__(self, data, args=None):
@@ -96,39 +33,94 @@ class CosiDataset(Dataset):
 		return len(self.data)
 
 	def __getitem__(self, idx):
-		example = self.data[idx]
-		if 'json' in self.args['train_data']:
-			keptHistory = " [SEP] ".join([" [SEP] ".join(val) for val in example['history'][-1*self.args['num_turns']:]])
-			example['context'] = example['instruction'] + ' [SEP] ' + keptHistory + ' [SEP] ' + example['input']
-			example['target'] = example['output']
-		return example
+		return self.data[idx]
 
+def rawDataToDataSplits(args):
+	numTurns = args['num_turns']
+	evidenceFile = args['evidence_data']
+
+	with open(args['raw_examples'], 'r') as fin:
+			examplesDict = json.load(fin)
+
+	evidenceDf = pd.read_csv(evidenceFile, sep='\t')
+		
+	outArray = []
+	exampleEncoded = 0
+	for arbLabel, arbGroup in examplesDict.items():
+		for convoNum, convoTurns in arbGroup.items():
+			for turnIdx, turn in enumerate(convoTurns):
+				user = turn[0]
+				if 'Guide' in user and turnIdx > 0:
+					speaker, response, evidence = turn
+					target = speaker + ": " + response
+					trueTurns = numTurns*2
+					aggText = [turn[0] + ": " + turn[1] for turn in convoTurns[max(0, turnIdx-trueTurns):turnIdx]]
+					context = " >> ".join(aggText)
+
+					path = arbLabel + "/" + str(convoNum) + "/" + str(turnIdx)
+
+					# Grabs gold evidence ids
+					matchedEvidenceIds = []
+					matchedEvidenceText = []
+					for evidenceIdx, evidenceVal in enumerate(evidence):
+						if type(evidenceVal) == list:
+							evidenceTitle = evidence[evidenceIdx-1].replace("_", "-")
+							for idVal in evidenceVal:
+								outId = evidenceTitle + "_" + str(idVal)
+								matchedEvidenceIds.append(outId)
+								if args['use_topics']:
+									matchedEvidenceText.append(" ".join(evidenceDf[evidenceDf['document'] == evidenceTitle]['text']))
+								else:
+									matchedEvidenceText.append(evidenceDf[evidenceDf['combinedId'] == outId]['text'].values[0])
+
+					# TODO: Modify context and targets as needed
+					outArray.append({"context": context, "target": target, "goldEvidenceIds": matchedEvidenceIds, 'evidenceText': matchedEvidenceText, 'examplePath': path})
+
+	# Split into train, dev, test
+	np.random.seed(args['data_seed'])
+	np.random.shuffle(outArray)
+	trainRatio = 1 - (2*args['dev_ratio'])
+	trainData = outArray[:int(trainRatio*len(outArray))]
+	devData = outArray[int(trainRatio*len(outArray)):int((trainRatio + args['dev_ratio'])*len(outArray))]
+	testData = outArray[int((trainRatio + args['dev_ratio'])*len(outArray)):]
+
+	trainDf = pd.DataFrame(trainData)
+	devDf = pd.DataFrame(devData)
+	testDf = pd.DataFrame(testData)
+	
+	trainDf.to_csv(args['train_data'], sep='\t', index=False)
+	devDf.to_csv(args['dev_data'], sep='\t', index=False)
+	testDf.to_csv(args['test_data'], sep='\t', index=False)
+	return trainData, devData, testData
 
 class seqTrainer(pl.LightningModule):
 	def __init__(self, args):
 		super().__init__()
-		self.automatic_optimization = False
+		self.save_hyperparameters()
 		self.args = args
-		self.model, self.tokenizer = self.stage_model()
+		modelName = self.args['model_name']
+		self.tokenizer = AutoTokenizer.from_pretrained(modelName)
+		self.model = AutoModelWithLMHead.from_pretrained(modelName, load_in_8bit=True, device_map='auto')
 		self.metricsDict = dict()
 		self.trainDs, self.devDs, self.testDs = self.get_datasets()
-		self.save_hyperparameters()
+		lora_config = LoraConfig(
+			r=16,
+			lora_alpha=32,
+			target_modules=["q", "v"],
+			lora_dropout=0.05,
+			bias="none",
+			task_type=TaskType.SEQ_2_SEQ_LM
+			)
+		self.model = prepare_model_for_int8_training(self.model, lora_config)
+		self.model = get_peft_model(self.model, lora_config)
 
 	def get_datasets(self):
 		if self.args['generate_data_splits']:
 			trainData, devData, testData = rawDataToDataSplits(self.args)
 		else:
-			if '.json' in self.args['train_data']:
-				with open(self.args['train_data'], 'r') as fin:
-					trainData = json.load(fin)
-				with open(self.args['dev_data'], 'r') as fin:
-					devData = json.load(fin)
-				with open(self.args['test_data'], 'r') as fin:
-					testData = json.load(fin)
-			else:
-				trainData = pd.read_csv(self.args['train_data'], sep='\t').to_dict('records')
-				devData = pd.read_csv(self.args['dev_data'], sep='\t').to_dict('records')
-				testData = pd.read_csv(self.args['test_data'], sep='\t').to_dict('records')
+			trainData = pd.read_csv(self.args['train_data'], sep='\t').to_dict('records')
+			devData = pd.read_csv(self.args['dev_data'], sep='\t').to_dict('records')
+			testData = pd.read_csv(self.args['test_data'], sep='\t').to_dict('records')
 		
 		trainDs = CosiDataset(trainData, args=self.args)
 		devDs = CosiDataset(devData, args=self.args)
@@ -140,24 +132,23 @@ class seqTrainer(pl.LightningModule):
 
 		tokenizer = AutoTokenizer.from_pretrained(modelName)
 		model = AutoModelWithLMHead.from_pretrained(modelName, load_in_8bit=True, device_map='auto')
-
-		if self.args['run_training']:
-			lora_config = LoraConfig(
-				r=16,
-				lora_alpha=32,
-				target_modules=["q", "v"],
-				lora_dropout=0.05,
-				bias="none",
-				task_type=TaskType.SEQ_2_SEQ_LM
-				)
-
-			model = prepare_model_for_int8_training(model, lora_config)
-			model = get_peft_model(model, lora_config)
 		return model, tokenizer
 
 	def on_train_start(self):
 		self.logger.log_hyperparams(self.args)
 		self.logger.log_hyperparams(self.model.config.to_dict())
+		
+		#lora_config = LoraConfig(
+		#	r=16,
+		#	lora_alpha=32,
+		#	target_modules=["q", "v"],
+		#	lora_dropout=0.05,
+		#	bias="none",
+		#	task_type=TaskType.SEQ_2_SEQ_LM
+		#	)
+#
+		#self.model = prepare_model_for_int8_training(self.model, lora_config)
+		#self.model = get_peft_model(self.model, lora_config)
 	
 	# Used only for inference
 	def forward(self, input_ids, attention_mask, labels=None):
@@ -165,22 +156,16 @@ class seqTrainer(pl.LightningModule):
 		return outputs
 
 	def collator(self, batch):
-		tokenizedContext = self.tokenizer([x['context'] for x in batch], padding=True, truncation=True, return_tensors='pt')
+		tokenizedContext = self.tokenizer([x['context'] for x in batch], padding=True, truncation=True, max_length=self.args['max_tkn_length'], return_tensors='pt')
 		input_ids = tokenizedContext['input_ids']
 		attention_mask = tokenizedContext['attention_mask']
-		labels = self.tokenizer([x['target'] for x in batch], padding=True, truncation=True, return_tensors='pt')['input_ids']
+		labels = self.tokenizer([x['target'] for x in batch], padding=True, truncation=True, max_length=self.args['max_tkn_length'], return_tensors='pt')['input_ids']
 		return input_ids, attention_mask, labels
 
 	def training_step(self, batch, batch_idx):
-		opt = self.optimizers()
-		opt.zero_grad()
-
 		input_ids, attention_mask, labels = batch
 		outputs = self.model(input_ids, attention_mask=attention_mask, labels=labels)
 		loss = outputs.loss
-
-		self.manual_backward(loss)
-		opt.step()
 
 		self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True, logger=True)
 		return loss
@@ -215,9 +200,9 @@ class seqTrainer(pl.LightningModule):
 		return DataLoader(self.testDs, batch_size=self.args['batch_size'], shuffle=False, num_workers=self.args['num_workers'], collate_fn=self.collator)
 
 	def on_save_checkpoint(self, checkpoint):
-		checkpointExactSave = self.args['model_directory'] + "/" + self.args['logger_name']
-		self.model.save_pretrained(checkpointExactSave)
-		self.tokenizer.save_pretrained(checkpointExactSave)
+		self.model.save_pretrained(self.args['model_path'])
+		self.tokenizer.save_pretrained(self.args['model_path'])
+		print("SAVED MODEL")
 	
 	def load_peft_checkpoint(self, checkpoint):
 		config = PeftConfig.from_pretrained(self.args['model_path'])
@@ -257,33 +242,38 @@ def run_training(model, args):
 def run_generation(model, args):
 	model.eval()
 	model.freeze()
-	model = model.to(device)
 
-	if '.json' in args['generation_input']:
-		with open(args['generation_input'], 'r') as fin:
-			examplesDictList = json.load(fin)
-		generationData = CosiDataset(examplesDictList, args=args)
-		generationDf = pd.DataFrame.from_records(examplesDictList)
-	else:
-		generationDf = pd.read_csv(args['generation_input'], sep='\t')
-		generationData = CosiDataset(generationDf.to_dict('records'), args=args)
+	generationDf = pd.read_csv(args['generation_input'], sep='\t')
+	contexts = generationDf['context'].values.tolist()
 
-	gen_dataloader = DataLoader(generationData, batch_size=args['batch_size'], shuffle=False, num_workers=args['num_workers'], collate_fn=model.collator)
-	
-	# Run on model.testDs
 	generations = []
-	for batchIdx, batch in enumerate(gen_dataloader):
-		input_ids, attention_mask, labels = batch
-		input_ids = input_ids.to(device)
+	batchSize = args['batch_size']
+	for batchIdx in range(0, len(contexts), batchSize):
+		batch = contexts[batchIdx:batchIdx+batchSize]
+		tokenizedContext = model.tokenizer(batch, padding=True, truncation=True, max_length=args['max_tkn_length'], return_tensors='pt')
+		input_ids = tokenizedContext['input_ids'].to(device)
+		attention_mask = tokenizedContext['attention_mask'].to(device)
 		outputs = model.model.generate(input_ids=input_ids, max_new_tokens=150)
-		outputs = outputs.cpu().numpy()
 		generations.extend([model.tokenizer.decode(x, skip_special_tokens=True) for x in outputs])
-		if batchIdx % (len(gen_dataloader)//5) == 0:
-			print("Generation batch", batchIdx, "of", len(gen_dataloader))
 	generationDf['generation'] = generations
-
 	return generationDf
 
+def run_interface(model, args):
+	model.eval()
+	model.freeze()
+
+	doc = input("Enter your document: ")
+	question = input("Enter your question: ")
+	while 'quit' != doc:
+		context = "Use the following article to answer the question:" + doc + question
+		tokenizedContext = model.tokenizer(context, padding=True, truncation=True, max_length=args['max_tkn_length'], return_tensors='pt')
+		input_ids = tokenizedContext['input_ids'].to(device)
+		attention_mask = tokenizedContext['attention_mask'].to(device)
+		outputs = model.model.generate(input_ids=input_ids, max_new_tokens=150)
+		outputString = model.tokenizer.decode(outputs[0], skip_special_tokens=True)
+		print(outputString)
+		doc = input("Enter your document: ")
+		question = input("Enter your question: ")
 
 def getParameters():
 	parser = argparse.ArgumentParser()
@@ -341,8 +331,11 @@ def getParameters():
 						help='train model')
 	parser.add_argument('--run_generation', action='store_true',
 						help='generate from model')
+	parser.add_argument('--run_interface', action='store_true',
+						help='generate from model')
 	parser.set_defaults(run_training=False)
 	parser.set_defaults(run_generation=False)
+	parser.set_defaults(run_interface=False)
 	parser.set_defaults(use_topics=False)
 	parser.set_defaults(generate_data_splits=False)
 	parser.set_defaults(generate_only=False)
@@ -359,6 +352,10 @@ def main():
 		model.load_peft_checkpoint(args['model_path'])
 		generationDf = run_generation(model, args)
 		generationDf.to_csv(args['generation_output'], sep='\t', index=False)
+	if args['run_interface']:
+		model = seqTrainer(args)
+		model.load_peft_checkpoint(args['model_path'])
+		run_interface(model, args)
 
 	return 0
 
