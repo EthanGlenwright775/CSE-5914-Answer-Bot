@@ -60,7 +60,7 @@ def pre_storage():
 
 # each thread will store its items in json and csv
 def qa_database_storage(context_pairs, context_id: int):
-    #json_storage(context_pairs, context_id)
+    json_storage(context_pairs, context_id)
     csv_storage(context_pairs)
 
 def json_storage(context_pairs, context_id: int):

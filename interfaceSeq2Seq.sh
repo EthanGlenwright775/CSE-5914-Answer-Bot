@@ -1,8 +1,8 @@
 # Make sure LOGGER_NAME and --model_name are correct
-LOGGER_NAME="t5_answer_bot_v1"
+LOGGER_NAME="t5_answer_bot_v5"
 python3 lightning_t5_trainer.py \
 	--model_directory "QA-Bot/" \
-	--model_path "QA-Bot/t5_answer_bot_v1/${LOGGER_NAME}/" \
+	--model_path "QA-Bot/${LOGGER_NAME}/" \
 	--train_data "QA-Output/training.tsv" \
 	--dev_data "QA-Output/validation.tsv" \
 	--test_data "QA-Output/testing.tsv" \
@@ -12,7 +12,7 @@ python3 lightning_t5_trainer.py \
 	--dev_ratio 0.1 \
 	--max_epochs 3 \
 	--lr 0.001 \
-	--batch_size 4 \
+	--batch_size 16 \
 	--max_tkn_length 512 \
 	--num_workers 8 \
 	--patience 1 \
