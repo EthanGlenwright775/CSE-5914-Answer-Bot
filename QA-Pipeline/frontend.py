@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request
 from rephraser import rephrase
 import nltk
-import os
-
-fifo_path = "/frontToModel"
+import os,tempfile
 
 # Create the pipe
+tmpdir = tempfile.mkdtemp()
+fifo_path = os.path.join(tmpdir, 'frontToModel')
 os.mkfifo(fifo_path)
 
 nltk.download('punkt', quiet=True)
