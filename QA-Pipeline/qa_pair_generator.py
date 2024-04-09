@@ -9,7 +9,7 @@ CHUNK_SIZE = 200
 
 # Implement a sliding window technique for the context
 
-def chunk_text(text: str) -> list[str]:
+def chunk_text(text: str):
     startingSentence = 0
     wordsInChunk = 0
     chunks = []
@@ -28,7 +28,7 @@ def chunk_text(text: str) -> list[str]:
 
     return chunks
 
-def generate_qa_pairs(text: str) -> dict[str, any]:
+def generate_qa_pairs(text: str):
     qa_pairs = []
 
     text = re.sub(r'[\t\n]', '', text)

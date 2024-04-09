@@ -21,7 +21,7 @@ def set_q_eval_threshold(threshold: int):
     q_eval_threshold = threshold
     print(f"Question evaluator threshold set to {q_eval_threshold}")
 
-def __generate__(answer: str, context: str) -> list[dict[str, str]]:
+def __generate__(answer: str, context: str):
         concat = "<answer> " + answer + " <context> " + context
         concat_tokenized = tokenizer(concat, 
             padding="max_length", 
@@ -47,7 +47,7 @@ def __generate__(answer: str, context: str) -> list[dict[str, str]]:
 #
 #    return qa_pair_list
 
-def generate_questions_monocontext(answer_list: list[str], context: str) -> list[dict[str, str]]:
+def generate_questions_monocontext(answer_list, context):
 
     if not isinstance(answer_list, list): raise RuntimeError("Answers must be a List.")
     if not isinstance(context, str): raise RuntimeError("Context must be a single String.")

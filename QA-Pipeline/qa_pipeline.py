@@ -56,6 +56,10 @@ def main():
         print("CUDA is available")
     else:
         print("CUDA is not available")
+        if torch.cuda.device_count() == 0:
+            print("No CUDA devices found.")
+        else:
+            print("CUDA device(s) found, but PyTorch is not compiled with CUDA support.")
 
     # QA Pipeline Start
     print("QA_PIPELINE started tasks")
