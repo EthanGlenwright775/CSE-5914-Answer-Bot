@@ -265,7 +265,7 @@ def run_interface(model, args):
 	doc = input("Enter your document: ")
 	question = input("Enter your question: ")
 	while True:
-		context = "Use the following article to answer the question:" + doc + question
+		context = "Use the Article to answer the Question:" + question + " Article: " + doc
 		tokenizedContext = model.tokenizer(context, padding=True, truncation=True, max_length=args['max_tkn_length'], return_tensors='pt')
 		input_ids = tokenizedContext['input_ids'].to(device)
 		attention_mask = tokenizedContext['attention_mask'].to(device)

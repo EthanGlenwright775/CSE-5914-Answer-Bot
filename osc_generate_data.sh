@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=PAS2706
 #SBATCH --job-name=generate_training_data
-#SBATCH --time=3:00:00
+#SBATCH --time=2:00:00
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --gpus-per-node=1

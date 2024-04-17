@@ -1,5 +1,6 @@
 from rephraser import rephrase
 from q_generator import generate_questions_monocontext
+from summarizer import condense
 import nltk
 import re
 
@@ -29,17 +30,26 @@ def chunk_text(text: str):
     return chunks
 
 def generate_qa_pairs(text: str):
-    qa_pairs = []
+    conext_q_a_pairs = []
 
     text = re.sub(r'[\t\n]', '', text)
     chunks = chunk_text(text)
     for i in range(len(chunks)):
-        phrases = sent_tokenize(rephrase(chunks[i]))
+        qa_pairs = []
+        answers = sent_tokenize(rephrase(chunks[i]))
         if i == len(chunks) - 1:
-            qa_pairs += generate_questions_monocontext(phrases, " ".join([chunks[i - 1], chunks[i]]))
+            context = " ".join([chunks[i - 1], chunks[i]])
+            qa_pairs += generate_questions_monocontext(answers, context)
         else:
-            qa_pairs += generate_questions_monocontext(phrases, " ".join([chunks[i], chunks[i+1]]))
+            context = " ".join([chunks[i], chunks[i+1]])
+            qa_pairs += generate_questions_monocontext(answers, context)
+        for qa_pair in qa_pairs:
+            conext_q_a_pairs.append({"context": context, "question": qa_pair.get("question"), "answer": qa_pair.get("answer")})
+        
+    #context = condense(text)
+    #answers = sent_tokenize(text)
+    #qa_pairs = generate_questions_monocontext(answers, context)
+    #for pair in conext_q_a_pairs:
+    #    print(f"Context: {pair.get("context")}\nQuestion: {pair.get("question")}\nAnswer: {pair.get("answer")}\n")
 
-    text_pairs = {"context": text, "qa_pairs": qa_pairs}
-
-    return text_pairs
+    return conext_q_a_pairs
