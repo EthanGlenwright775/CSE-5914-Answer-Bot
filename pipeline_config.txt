@@ -1,4 +1,0 @@
-db_index_start=100
-article_count=32
-thread_count=8
-q_eval_threshold=1

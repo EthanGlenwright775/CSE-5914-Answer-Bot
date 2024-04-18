@@ -1,39 +1,30 @@
 import requests
+import sys
 
 URL = "https://datasets-server.huggingface.co/rows"
-
-def get_article_summaries(db_index_start, num_articles):
-    params = {
-        "dataset": "multi_news",
-        "config": "default",
-        "split": "train",
-        "offset": db_index_start,
-        "length": num_articles
-    }
-
-    response = requests.get(URL, params=params)
-
-    if response.status_code == 200:
-        data = response.json()
-        summaries = [row['row']['summary'] for row in data['rows']]
-        return summaries
-    else:
-        return None
+DATASET = "multi_news"
+CONFIG = "default"
+SPLIT = "train"
+LENGTH = 1
+MAX_RETRIES = 10
     
-def get_article_documents(db_index_start, num_articles):
+def cc_get_article(db_index):
     params = {
-        "dataset": "multi_news",
-        "config": "default",
-        "split": "train",
-        "offset": db_index_start,
-        "length": num_articles
+        "dataset": DATASET,
+        "config": CONFIG,
+        "split": SPLIT,
+        "offset": db_index,
+        "length": LENGTH
     }
 
-    response = requests.get(URL, params=params)
+    for attempt in range(MAX_RETRIES):
+        response = requests.get(URL, params=params)
 
-    if response.status_code == 200:
-        data = response.json()
-        document = [row['row']['document'] for row in data['rows']]
-        return document
-    else:
-        return None
+        if response.status_code == 200:
+            data = response.json()
+            return [row['row']['document'] for row in data['rows']]
+        else:
+            print(f"Error grabbing article with db index {db_index}: Attempt {attempt+1}/{MAX_RETRIES}")
+
+    print(f"Thread w/ db index {db_index} failed to retrieve context")
+    sys.exit(1)

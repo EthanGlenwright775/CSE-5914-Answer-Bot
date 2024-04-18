@@ -1,7 +1,12 @@
 #!/bin/bash
-# pull command line arguments from config
-source pipeline_config.txt
-# run qa pipeline
-python ./QA-Pipeline/qa_pipeline.py "$db_index_start" "$article_count" "$thread_count" "$q_eval_threshold"
-# run data diversity analysis on pipeline output
-#python ./QA-Evaluator/evaluator.py -f  ./QA-Output/pipeline_output.json -o ./QA-Output/data_diversity_scores.txt
+python3 ./QA-Pipeline/qa_pipeline.py \
+    --article_index 500 \
+    --article_count 200 \
+    --thread_count 4 \
+    --q_eval_threshold 1 \
+    --output_directory "QA-Output" \
+    --training_file "training.tsv" \
+    --validation_file "validation.tsv" \
+    --testing_file "testing.tsv" \
+    --article_db "cnn_news" \
+    --qa_gen_method "chunk_rephrase"

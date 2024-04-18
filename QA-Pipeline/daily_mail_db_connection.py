@@ -8,7 +8,7 @@ SPLIT = "train"
 LENGTH = 1
 MAX_RETRIES = 10
 
-def get_article(db_index: int) -> str:
+def daily_get_article(db_index: int) -> str:
     params = {
         "dataset": DATASET,
         "config": CONFIG,
