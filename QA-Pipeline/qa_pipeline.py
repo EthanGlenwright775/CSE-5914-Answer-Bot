@@ -289,7 +289,7 @@ class QA_Pipeline:
     def csv_storage(self, context_pairs):
         with example_count_lock:
             if self.testing_count < (self.training_count + self.validation_count + self.testing_count) / DATA_RATIO:
-                path = self.training_file
+                path = self.testing_file
                 lock = testing_csv_lock
                 self.testing_count += len(context_pairs)
                 #print(f"Testing Count: {self.testing_count}")
@@ -299,7 +299,7 @@ class QA_Pipeline:
                 self.validation_count += len(context_pairs)
                 #print(f"Validation Count: {self.validation_count}")
             else:
-                path = self.testing_file
+                path = self.training_file
                 lock = training_csv_lock
                 self.training_count += len(context_pairs)
                 #print(f"Training Count: {self.training_count}")
