@@ -1,0 +1,264 @@
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+================================= CONFIGURATION =================================
+article_index = 804
+article_count = 76
+thread_count = 4
+q_eval_threshold = 1
+output_directory = QA-Output-v1
+training_file = training.tsv
+validation_file = validation.tsv
+testing_file = testing.tsv
+article_db = cnn_news
+qa_gen_method = chunk_rephrase
+CUDA is available
+================================= STARTING DATA =================================
+Total Count: 4982
+Training: 78.68%
+Validation: 11.4%
+Testing: 9.92%
+=================================== PROCESSING ===================================
+THREAD w/ db_index 806 has context
+THREAD w/ db_index 804 has context
+THREAD w/ db_index 805 has context
+THREAD w/ db_index 807 has context
+THREAD w/ db_index 805 has qa_pairs
+THREAD w/ db_index 805 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 808 has context
+THREAD w/ db_index 806 has qa_pairs
+THREAD w/ db_index 806 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 809 has context
+THREAD w/ db_index 808 has qa_pairs
+THREAD w/ db_index 808 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 810 has context
+THREAD w/ db_index 807 has qa_pairs
+THREAD w/ db_index 807 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 811 has context
+THREAD w/ db_index 811 has qa_pairs
+THREAD w/ db_index 811 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 812 has context
+THREAD w/ db_index 810 has qa_pairs
+THREAD w/ db_index 810 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 813 has context
+THREAD w/ db_index 812 has qa_pairs
+THREAD w/ db_index 812 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 814 has context
+THREAD w/ db_index 813 has qa_pairs
+THREAD w/ db_index 813 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 815 has context
+THREAD w/ db_index 809 has qa_pairs
+THREAD w/ db_index 809 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 816 has context
+THREAD w/ db_index 816 has qa_pairs
+THREAD w/ db_index 816 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 817 has context
+THREAD w/ db_index 814 has qa_pairs
+THREAD w/ db_index 814 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 818 has context
+THREAD w/ db_index 817 has qa_pairs
+THREAD w/ db_index 817 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 819 has context
+THREAD w/ db_index 815 has qa_pairs
+THREAD w/ db_index 815 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 820 has context
+THREAD w/ db_index 804 has qa_pairs
+THREAD w/ db_index 804 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 821 has context
+THREAD w/ db_index 820 has qa_pairs
+THREAD w/ db_index 820 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 822 has context
+THREAD w/ db_index 819 has qa_pairs
+THREAD w/ db_index 819 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 823 has context
+THREAD w/ db_index 822 has qa_pairs
+THREAD w/ db_index 822 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 824 has context
+THREAD w/ db_index 818 has qa_pairs
+THREAD w/ db_index 818 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 825 has context
+THREAD w/ db_index 821 has qa_pairs
+THREAD w/ db_index 821 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 826 has context
+THREAD w/ db_index 825 has qa_pairs
+THREAD w/ db_index 825 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 827 has context
+THREAD w/ db_index 824 has qa_pairs
+THREAD w/ db_index 824 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 828 has context
+THREAD w/ db_index 823 has qa_pairs
+THREAD w/ db_index 823 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 829 has context
+THREAD w/ db_index 826 has qa_pairs
+THREAD w/ db_index 826 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 830 has context
+THREAD w/ db_index 829 has qa_pairs
+THREAD w/ db_index 829 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 831 has context
+THREAD w/ db_index 827 has qa_pairs
+THREAD w/ db_index 827 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 832 has context
+THREAD w/ db_index 830 has qa_pairs
+THREAD w/ db_index 830 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 833 has context
+THREAD w/ db_index 833 has qa_pairs
+THREAD w/ db_index 833 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 834 has context
+THREAD w/ db_index 832 has qa_pairs
+THREAD w/ db_index 832 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 831 has qa_pairs
+THREAD w/ db_index 831 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 835 has context
+THREAD w/ db_index 836 has context
+THREAD w/ db_index 828 has qa_pairs
+THREAD w/ db_index 828 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 837 has context
+THREAD w/ db_index 837 has qa_pairs
+THREAD w/ db_index 837 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 838 has context
+THREAD w/ db_index 836 has qa_pairs
+THREAD w/ db_index 836 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 839 has context
+THREAD w/ db_index 834 has qa_pairs
+THREAD w/ db_index 834 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 840 has context
+THREAD w/ db_index 839 has qa_pairs
+THREAD w/ db_index 839 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 841 has context
+THREAD w/ db_index 835 has qa_pairs
+THREAD w/ db_index 835 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 840 has qa_pairs
+THREAD w/ db_index 840 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 843 has context
+THREAD w/ db_index 841 has qa_pairs
+THREAD w/ db_index 841 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 844 has context
+Error grabbing article with db index 842: Attempt 1/10
+THREAD w/ db_index 842 has context
+THREAD w/ db_index 844 has qa_pairs
+THREAD w/ db_index 844 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 845 has context
+THREAD w/ db_index 838 has qa_pairs
+THREAD w/ db_index 838 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 846 has context
+THREAD w/ db_index 843 has qa_pairs
+THREAD w/ db_index 843 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 847 has context
+THREAD w/ db_index 845 has qa_pairs
+THREAD w/ db_index 845 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 848 has context
+THREAD w/ db_index 846 has qa_pairs
+THREAD w/ db_index 846 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 849 has context
+THREAD w/ db_index 842 has qa_pairs
+THREAD w/ db_index 842 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 850 has context
+THREAD w/ db_index 847 has qa_pairs
+THREAD w/ db_index 847 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 851 has context
+THREAD w/ db_index 848 has qa_pairs
+THREAD w/ db_index 848 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 852 has context
+THREAD w/ db_index 850 has qa_pairs
+THREAD w/ db_index 850 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 853 has context
+THREAD w/ db_index 852 has qa_pairs
+THREAD w/ db_index 852 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 854 has context
+THREAD w/ db_index 849 has qa_pairs
+THREAD w/ db_index 849 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 855 has context
+THREAD w/ db_index 854 has qa_pairs
+THREAD w/ db_index 854 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 856 has context
+THREAD w/ db_index 853 has qa_pairs
+THREAD w/ db_index 853 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 857 has context
+THREAD w/ db_index 856 has qa_pairs
+THREAD w/ db_index 856 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 858 has context
+THREAD w/ db_index 857 has qa_pairs
+THREAD w/ db_index 857 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 859 has context
+THREAD w/ db_index 855 has qa_pairs
+THREAD w/ db_index 855 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 860 has context
+THREAD w/ db_index 851 has qa_pairs
+THREAD w/ db_index 851 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 861 has context
+THREAD w/ db_index 860 has qa_pairs
+THREAD w/ db_index 860 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 862 has context
+THREAD w/ db_index 858 has qa_pairs
+THREAD w/ db_index 858 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 863 has context
+THREAD w/ db_index 862 has qa_pairs
+THREAD w/ db_index 862 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 864 has context
+THREAD w/ db_index 861 has qa_pairs
+THREAD w/ db_index 861 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 865 has context
+THREAD w/ db_index 863 has qa_pairs
+THREAD w/ db_index 863 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 866 has context
+THREAD w/ db_index 864 has qa_pairs
+THREAD w/ db_index 864 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 867 has context
+THREAD w/ db_index 859 has qa_pairs
+THREAD w/ db_index 859 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 868 has context
+THREAD w/ db_index 865 has qa_pairs
+THREAD w/ db_index 865 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 869 has context
+THREAD w/ db_index 868 has qa_pairs
+THREAD w/ db_index 868 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 870 has context
+THREAD w/ db_index 870 has qa_pairs
+THREAD w/ db_index 870 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 871 has context
+THREAD w/ db_index 869 has qa_pairs
+THREAD w/ db_index 869 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 872 has context
+THREAD w/ db_index 871 has qa_pairs
+THREAD w/ db_index 871 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 873 has context
+THREAD w/ db_index 873 has qa_pairs
+THREAD w/ db_index 873 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 874 has context
+THREAD w/ db_index 867 has qa_pairs
+THREAD w/ db_index 867 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 875 has context
+THREAD w/ db_index 874 has qa_pairs
+THREAD w/ db_index 874 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 876 has context
+THREAD w/ db_index 866 has qa_pairs
+THREAD w/ db_index 866 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 877 has context
+THREAD w/ db_index 877 has qa_pairs
+THREAD w/ db_index 877 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 878 has context
+THREAD w/ db_index 875 has qa_pairs
+THREAD w/ db_index 875 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 879 has context
+THREAD w/ db_index 876 has qa_pairs
+THREAD w/ db_index 876 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 879 has qa_pairs
+THREAD w/ db_index 879 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 878 has qa_pairs
+THREAD w/ db_index 878 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 872 has qa_pairs
+THREAD w/ db_index 872 has stored its context and qa_pairs in QA-Output
+================================== ENDING DATA ==================================
+Total Count: 6111
+Training: 79.3%
+Validation: 10.1%
+Testing: 10.6%
+============================= RESULTS OF CURRENT RUN =============================
+Total # of questions: 1297
+Total # of accepted questions: 1129
+Total # of rejected questions: 168
+Question rejection rate: 12.95%
+Average QA pair BERT score: 2.59
+Pipeline runtime (s): 2174.57
+Accepted questions per second: 0.52
+slurmstepd: error: _wait_for_all_tasks: No child processes. node_tasks:1, expected:1, reaped:0

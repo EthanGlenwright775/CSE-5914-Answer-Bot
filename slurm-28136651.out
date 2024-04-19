@@ -1,0 +1,939 @@
+================================= CONFIGURATION =================================
+article_index = 500
+article_count = 304
+thread_count = 8
+q_eval_threshold = 1
+output_directory = QA-Output-v1
+training_file = training.tsv
+validation_file = validation.tsv
+testing_file = testing.tsv
+article_db = cnn_news
+qa_gen_method = chunk_rephrase
+CUDA is available
+=================================== PROCESSING ===================================
+THREAD w/ db_index 503 has context
+THREAD w/ db_index 502 has context
+THREAD w/ db_index 500 has context
+THREAD w/ db_index 507 has context
+THREAD w/ db_index 501 has context
+THREAD w/ db_index 505 has context
+THREAD w/ db_index 506 has context
+THREAD w/ db_index 504 has context
+THREAD w/ db_index 503 has qa_pairs
+THREAD w/ db_index 503 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 508 has context
+THREAD w/ db_index 502 has qa_pairs
+THREAD w/ db_index 502 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 509 has context
+THREAD w/ db_index 506 has qa_pairs
+THREAD w/ db_index 506 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 510 has context
+THREAD w/ db_index 500 has qa_pairs
+THREAD w/ db_index 500 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 511 has context
+THREAD w/ db_index 507 has qa_pairs
+THREAD w/ db_index 507 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 512 has context
+THREAD w/ db_index 508 has qa_pairs
+THREAD w/ db_index 508 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 513 has context
+THREAD w/ db_index 501 has qa_pairs
+THREAD w/ db_index 501 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 514 has context
+THREAD w/ db_index 509 has qa_pairs
+THREAD w/ db_index 509 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 515 has context
+THREAD w/ db_index 511 has qa_pairs
+THREAD w/ db_index 511 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 516 has context
+THREAD w/ db_index 505 has qa_pairs
+THREAD w/ db_index 505 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 517 has context
+THREAD w/ db_index 516 has qa_pairs
+THREAD w/ db_index 516 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 518 has context
+THREAD w/ db_index 515 has qa_pairs
+THREAD w/ db_index 515 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 519 has context
+THREAD w/ db_index 514 has qa_pairs
+THREAD w/ db_index 514 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 520 has context
+THREAD w/ db_index 518 has qa_pairs
+THREAD w/ db_index 518 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 521 has context
+THREAD w/ db_index 512 has qa_pairs
+THREAD w/ db_index 512 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 522 has context
+THREAD w/ db_index 519 has qa_pairs
+THREAD w/ db_index 519 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 523 has context
+THREAD w/ db_index 517 has qa_pairs
+THREAD w/ db_index 517 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 510 has qa_pairs
+THREAD w/ db_index 510 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 525 has context
+THREAD w/ db_index 524 has context
+THREAD w/ db_index 520 has qa_pairs
+THREAD w/ db_index 520 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 526 has context
+THREAD w/ db_index 522 has qa_pairs
+THREAD w/ db_index 522 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 527 has context
+THREAD w/ db_index 521 has qa_pairs
+THREAD w/ db_index 521 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 528 has context
+THREAD w/ db_index 525 has qa_pairs
+THREAD w/ db_index 525 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 529 has context
+THREAD w/ db_index 523 has qa_pairs
+THREAD w/ db_index 523 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 530 has context
+THREAD w/ db_index 504 has qa_pairs
+THREAD w/ db_index 504 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 531 has context
+THREAD w/ db_index 513 has qa_pairs
+THREAD w/ db_index 513 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 532 has context
+THREAD w/ db_index 526 has qa_pairs
+THREAD w/ db_index 526 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 533 has context
+THREAD w/ db_index 528 has qa_pairs
+THREAD w/ db_index 528 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 534 has context
+THREAD w/ db_index 530 has qa_pairs
+THREAD w/ db_index 530 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 535 has context
+THREAD w/ db_index 529 has qa_pairs
+THREAD w/ db_index 529 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 536 has context
+THREAD w/ db_index 532 has qa_pairs
+THREAD w/ db_index 532 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 537 has context
+THREAD w/ db_index 524 has qa_pairs
+THREAD w/ db_index 524 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 538 has context
+THREAD w/ db_index 535 has qa_pairs
+THREAD w/ db_index 535 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 539 has context
+THREAD w/ db_index 531 has qa_pairs
+THREAD w/ db_index 531 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 540 has context
+THREAD w/ db_index 536 has qa_pairs
+THREAD w/ db_index 536 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 541 has context
+THREAD w/ db_index 538 has qa_pairs
+THREAD w/ db_index 538 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 542 has context
+THREAD w/ db_index 537 has qa_pairs
+THREAD w/ db_index 537 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 543 has context
+THREAD w/ db_index 540 has qa_pairs
+THREAD w/ db_index 540 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 544 has context
+THREAD w/ db_index 541 has qa_pairs
+THREAD w/ db_index 541 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 545 has context
+THREAD w/ db_index 527 has qa_pairs
+THREAD w/ db_index 527 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 546 has context
+THREAD w/ db_index 542 has qa_pairs
+THREAD w/ db_index 542 has stored its context and qa_pairs in QA-Output
+Error grabbing article with db index 547: Attempt 1/10
+THREAD w/ db_index 547 has context
+THREAD w/ db_index 533 has qa_pairs
+THREAD w/ db_index 533 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 548 has context
+THREAD w/ db_index 546 has qa_pairs
+THREAD w/ db_index 546 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 549 has context
+THREAD w/ db_index 539 has qa_pairs
+THREAD w/ db_index 539 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 550 has context
+THREAD w/ db_index 544 has qa_pairs
+THREAD w/ db_index 544 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 551 has context
+THREAD w/ db_index 550 has qa_pairs
+THREAD w/ db_index 550 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 552 has context
+THREAD w/ db_index 534 has qa_pairs
+THREAD w/ db_index 534 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 553 has context
+THREAD w/ db_index 545 has qa_pairs
+THREAD w/ db_index 545 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 554 has context
+THREAD w/ db_index 547 has qa_pairs
+THREAD w/ db_index 547 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 555 has context
+THREAD w/ db_index 548 has qa_pairs
+THREAD w/ db_index 548 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 556 has context
+THREAD w/ db_index 543 has qa_pairs
+THREAD w/ db_index 543 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 557 has context
+THREAD w/ db_index 557 has qa_pairs
+THREAD w/ db_index 557 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 558 has context
+THREAD w/ db_index 549 has qa_pairs
+THREAD w/ db_index 549 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 559 has context
+THREAD w/ db_index 556 has qa_pairs
+THREAD w/ db_index 556 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 560 has context
+THREAD w/ db_index 551 has qa_pairs
+THREAD w/ db_index 551 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 561 has context
+THREAD w/ db_index 552 has qa_pairs
+THREAD w/ db_index 552 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 562 has context
+THREAD w/ db_index 554 has qa_pairs
+THREAD w/ db_index 554 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 563 has context
+THREAD w/ db_index 555 has qa_pairs
+THREAD w/ db_index 555 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 564 has context
+THREAD w/ db_index 560 has qa_pairs
+THREAD w/ db_index 560 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 565 has context
+THREAD w/ db_index 563 has qa_pairs
+THREAD w/ db_index 563 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 566 has context
+THREAD w/ db_index 558 has qa_pairs
+THREAD w/ db_index 558 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 567 has context
+THREAD w/ db_index 561 has qa_pairs
+THREAD w/ db_index 561 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 568 has context
+THREAD w/ db_index 565 has qa_pairs
+THREAD w/ db_index 565 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 569 has context
+THREAD w/ db_index 564 has qa_pairs
+THREAD w/ db_index 564 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 570 has context
+THREAD w/ db_index 567 has qa_pairs
+THREAD w/ db_index 567 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 571 has context
+THREAD w/ db_index 568 has qa_pairs
+THREAD w/ db_index 568 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 572 has context
+THREAD w/ db_index 569 has qa_pairs
+THREAD w/ db_index 569 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 573 has context
+THREAD w/ db_index 571 has qa_pairs
+THREAD w/ db_index 571 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 574 has context
+THREAD w/ db_index 562 has qa_pairs
+THREAD w/ db_index 562 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 575 has context
+THREAD w/ db_index 559 has qa_pairs
+THREAD w/ db_index 559 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 576 has context
+THREAD w/ db_index 572 has qa_pairs
+THREAD w/ db_index 572 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 577 has context
+THREAD w/ db_index 566 has qa_pairs
+THREAD w/ db_index 566 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 578 has context
+THREAD w/ db_index 576 has qa_pairs
+THREAD w/ db_index 576 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 579 has context
+THREAD w/ db_index 574 has qa_pairs
+THREAD w/ db_index 574 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 580 has context
+THREAD w/ db_index 573 has qa_pairs
+THREAD w/ db_index 573 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 581 has context
+THREAD w/ db_index 580 has qa_pairs
+THREAD w/ db_index 580 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 582 has context
+THREAD w/ db_index 578 has qa_pairs
+THREAD w/ db_index 578 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 583 has context
+THREAD w/ db_index 577 has qa_pairs
+THREAD w/ db_index 577 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 584 has context
+THREAD w/ db_index 581 has qa_pairs
+THREAD w/ db_index 581 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 585 has context
+THREAD w/ db_index 570 has qa_pairs
+THREAD w/ db_index 570 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 586 has context
+THREAD w/ db_index 579 has qa_pairs
+THREAD w/ db_index 579 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 587 has context
+THREAD w/ db_index 582 has qa_pairs
+THREAD w/ db_index 582 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 588 has context
+THREAD w/ db_index 588 has qa_pairs
+THREAD w/ db_index 588 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 589 has context
+THREAD w/ db_index 589 has qa_pairs
+THREAD w/ db_index 589 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 590 has context
+THREAD w/ db_index 587 has qa_pairs
+THREAD w/ db_index 587 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 591 has context
+THREAD w/ db_index 584 has qa_pairs
+THREAD w/ db_index 584 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 592 has context
+THREAD w/ db_index 590 has qa_pairs
+THREAD w/ db_index 590 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 593 has context
+THREAD w/ db_index 575 has qa_pairs
+THREAD w/ db_index 575 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 594 has context
+THREAD w/ db_index 586 has qa_pairs
+THREAD w/ db_index 586 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 595 has context
+THREAD w/ db_index 595 has qa_pairs
+THREAD w/ db_index 595 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 596 has context
+THREAD w/ db_index 583 has qa_pairs
+THREAD w/ db_index 583 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 597 has context
+THREAD w/ db_index 585 has qa_pairs
+THREAD w/ db_index 585 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 598 has context
+THREAD w/ db_index 597 has qa_pairs
+THREAD w/ db_index 597 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 599 has context
+THREAD w/ db_index 593 has qa_pairs
+THREAD w/ db_index 593 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 600 has context
+THREAD w/ db_index 553 has qa_pairs
+THREAD w/ db_index 553 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 601 has context
+THREAD w/ db_index 591 has qa_pairs
+THREAD w/ db_index 591 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 602 has context
+THREAD w/ db_index 596 has qa_pairs
+THREAD w/ db_index 596 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 603 has context
+THREAD w/ db_index 594 has qa_pairs
+THREAD w/ db_index 594 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 604 has context
+THREAD w/ db_index 601 has qa_pairs
+THREAD w/ db_index 601 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 605 has context
+THREAD w/ db_index 604 has qa_pairs
+THREAD w/ db_index 604 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 606 has context
+THREAD w/ db_index 602 has qa_pairs
+THREAD w/ db_index 602 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 607 has context
+THREAD w/ db_index 600 has qa_pairs
+THREAD w/ db_index 600 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 608 has context
+THREAD w/ db_index 603 has qa_pairs
+THREAD w/ db_index 603 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 609 has context
+THREAD w/ db_index 607 has qa_pairs
+THREAD w/ db_index 607 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 610 has context
+THREAD w/ db_index 608 has qa_pairs
+THREAD w/ db_index 608 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 611 has context
+THREAD w/ db_index 599 has qa_pairs
+THREAD w/ db_index 599 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 612 has context
+THREAD w/ db_index 609 has qa_pairs
+THREAD w/ db_index 609 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 613 has context
+THREAD w/ db_index 610 has qa_pairs
+THREAD w/ db_index 610 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 614 has context
+THREAD w/ db_index 605 has qa_pairs
+THREAD w/ db_index 605 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 615 has context
+THREAD w/ db_index 606 has qa_pairs
+THREAD w/ db_index 606 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 616 has context
+THREAD w/ db_index 612 has qa_pairs
+THREAD w/ db_index 612 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 617 has context
+THREAD w/ db_index 613 has qa_pairs
+THREAD w/ db_index 613 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 618 has context
+THREAD w/ db_index 611 has qa_pairs
+THREAD w/ db_index 611 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 619 has context
+THREAD w/ db_index 618 has qa_pairs
+THREAD w/ db_index 618 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 620 has context
+THREAD w/ db_index 620 has qa_pairs
+THREAD w/ db_index 620 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 621 has context
+THREAD w/ db_index 614 has qa_pairs
+THREAD w/ db_index 614 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 622 has context
+THREAD w/ db_index 616 has qa_pairs
+THREAD w/ db_index 616 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 623 has context
+THREAD w/ db_index 617 has qa_pairs
+THREAD w/ db_index 617 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 624 has context
+THREAD w/ db_index 619 has qa_pairs
+THREAD w/ db_index 619 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 625 has context
+THREAD w/ db_index 623 has qa_pairs
+THREAD w/ db_index 623 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 626 has context
+THREAD w/ db_index 592 has qa_pairs
+THREAD w/ db_index 592 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 627 has context
+THREAD w/ db_index 615 has qa_pairs
+THREAD w/ db_index 615 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 628 has context
+THREAD w/ db_index 624 has qa_pairs
+THREAD w/ db_index 624 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 629 has context
+THREAD w/ db_index 621 has qa_pairs
+THREAD w/ db_index 621 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 630 has context
+THREAD w/ db_index 626 has qa_pairs
+THREAD w/ db_index 626 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 631 has context
+THREAD w/ db_index 629 has qa_pairs
+THREAD w/ db_index 629 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 632 has context
+THREAD w/ db_index 622 has qa_pairs
+THREAD w/ db_index 622 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 633 has context
+THREAD w/ db_index 625 has qa_pairs
+THREAD w/ db_index 625 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 634 has context
+THREAD w/ db_index 632 has qa_pairs
+THREAD w/ db_index 632 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 635 has context
+THREAD w/ db_index 598 has qa_pairs
+THREAD w/ db_index 598 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 636 has context
+THREAD w/ db_index 627 has qa_pairs
+THREAD w/ db_index 627 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 637 has context
+THREAD w/ db_index 634 has qa_pairs
+THREAD w/ db_index 634 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 638 has context
+THREAD w/ db_index 631 has qa_pairs
+THREAD w/ db_index 631 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 639 has context
+THREAD w/ db_index 633 has qa_pairs
+THREAD w/ db_index 633 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 640 has context
+THREAD w/ db_index 636 has qa_pairs
+THREAD w/ db_index 636 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 641 has context
+THREAD w/ db_index 635 has qa_pairs
+THREAD w/ db_index 635 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 642 has context
+THREAD w/ db_index 640 has qa_pairs
+THREAD w/ db_index 640 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 643 has context
+THREAD w/ db_index 641 has qa_pairs
+THREAD w/ db_index 641 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 644 has context
+THREAD w/ db_index 628 has qa_pairs
+THREAD w/ db_index 628 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 645 has context
+THREAD w/ db_index 630 has qa_pairs
+THREAD w/ db_index 630 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 646 has context
+THREAD w/ db_index 644 has qa_pairs
+THREAD w/ db_index 644 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 647 has context
+THREAD w/ db_index 637 has qa_pairs
+THREAD w/ db_index 637 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 648 has context
+THREAD w/ db_index 643 has qa_pairs
+THREAD w/ db_index 643 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 649 has context
+THREAD w/ db_index 642 has qa_pairs
+THREAD w/ db_index 642 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 650 has context
+THREAD w/ db_index 645 has qa_pairs
+THREAD w/ db_index 645 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 651 has context
+THREAD w/ db_index 639 has qa_pairs
+THREAD w/ db_index 639 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 652 has context
+THREAD w/ db_index 649 has qa_pairs
+THREAD w/ db_index 649 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 653 has context
+THREAD w/ db_index 650 has qa_pairs
+THREAD w/ db_index 650 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 654 has context
+THREAD w/ db_index 647 has qa_pairs
+THREAD w/ db_index 647 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 655 has context
+THREAD w/ db_index 651 has qa_pairs
+THREAD w/ db_index 651 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 656 has context
+THREAD w/ db_index 648 has qa_pairs
+THREAD w/ db_index 648 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 657 has context
+THREAD w/ db_index 657 has qa_pairs
+THREAD w/ db_index 657 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 658 has context
+THREAD w/ db_index 653 has qa_pairs
+THREAD w/ db_index 653 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 659 has context
+THREAD w/ db_index 656 has qa_pairs
+THREAD w/ db_index 656 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 660 has context
+THREAD w/ db_index 654 has qa_pairs
+THREAD w/ db_index 654 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 661 has context
+THREAD w/ db_index 659 has qa_pairs
+THREAD w/ db_index 659 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 662 has context
+THREAD w/ db_index 652 has qa_pairs
+THREAD w/ db_index 652 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 663 has context
+THREAD w/ db_index 655 has qa_pairs
+THREAD w/ db_index 655 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 664 has context
+THREAD w/ db_index 660 has qa_pairs
+THREAD w/ db_index 660 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 665 has context
+THREAD w/ db_index 662 has qa_pairs
+THREAD w/ db_index 662 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 666 has context
+THREAD w/ db_index 664 has qa_pairs
+THREAD w/ db_index 664 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 667 has context
+THREAD w/ db_index 638 has qa_pairs
+THREAD w/ db_index 638 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 668 has context
+THREAD w/ db_index 663 has qa_pairs
+THREAD w/ db_index 663 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 669 has context
+THREAD w/ db_index 658 has qa_pairs
+THREAD w/ db_index 658 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 670 has context
+THREAD w/ db_index 661 has qa_pairs
+THREAD w/ db_index 661 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 671 has context
+THREAD w/ db_index 667 has qa_pairs
+THREAD w/ db_index 667 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 672 has context
+THREAD w/ db_index 666 has qa_pairs
+THREAD w/ db_index 666 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 673 has context
+THREAD w/ db_index 665 has qa_pairs
+THREAD w/ db_index 665 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 674 has context
+THREAD w/ db_index 669 has qa_pairs
+THREAD w/ db_index 669 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 670 has qa_pairs
+THREAD w/ db_index 646 has qa_pairs
+THREAD w/ db_index 670 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 646 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 675 has context
+THREAD w/ db_index 677 has context
+THREAD w/ db_index 676 has context
+THREAD w/ db_index 671 has qa_pairs
+THREAD w/ db_index 671 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 678 has context
+THREAD w/ db_index 668 has qa_pairs
+THREAD w/ db_index 668 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 679 has context
+THREAD w/ db_index 675 has qa_pairs
+THREAD w/ db_index 675 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 680 has context
+THREAD w/ db_index 673 has qa_pairs
+THREAD w/ db_index 673 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 681 has context
+THREAD w/ db_index 679 has qa_pairs
+THREAD w/ db_index 679 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 682 has context
+THREAD w/ db_index 676 has qa_pairs
+THREAD w/ db_index 676 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 683 has context
+THREAD w/ db_index 672 has qa_pairs
+THREAD w/ db_index 672 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 684 has context
+THREAD w/ db_index 677 has qa_pairs
+THREAD w/ db_index 677 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 685 has context
+THREAD w/ db_index 681 has qa_pairs
+THREAD w/ db_index 681 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 686 has context
+THREAD w/ db_index 684 has qa_pairs
+THREAD w/ db_index 684 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 687 has context
+THREAD w/ db_index 680 has qa_pairs
+THREAD w/ db_index 680 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 688 has context
+THREAD w/ db_index 674 has qa_pairs
+THREAD w/ db_index 674 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 689 has context
+THREAD w/ db_index 686 has qa_pairs
+THREAD w/ db_index 686 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 690 has context
+THREAD w/ db_index 683 has qa_pairs
+THREAD w/ db_index 683 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 691 has context
+THREAD w/ db_index 685 has qa_pairs
+THREAD w/ db_index 685 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 692 has context
+THREAD w/ db_index 678 has qa_pairs
+THREAD w/ db_index 678 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 693 has context
+THREAD w/ db_index 689 has qa_pairs
+THREAD w/ db_index 689 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 694 has context
+THREAD w/ db_index 690 has qa_pairs
+THREAD w/ db_index 690 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 695 has context
+THREAD w/ db_index 691 has qa_pairs
+THREAD w/ db_index 691 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 696 has context
+THREAD w/ db_index 694 has qa_pairs
+THREAD w/ db_index 694 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 697 has context
+THREAD w/ db_index 692 has qa_pairs
+THREAD w/ db_index 692 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 698 has context
+THREAD w/ db_index 693 has qa_pairs
+THREAD w/ db_index 693 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 699 has context
+THREAD w/ db_index 698 has qa_pairs
+THREAD w/ db_index 698 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 700 has context
+THREAD w/ db_index 688 has qa_pairs
+THREAD w/ db_index 688 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 701 has context
+THREAD w/ db_index 697 has qa_pairs
+THREAD w/ db_index 697 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 702 has context
+THREAD w/ db_index 687 has qa_pairs
+THREAD w/ db_index 687 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 703 has context
+THREAD w/ db_index 682 has qa_pairs
+THREAD w/ db_index 682 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 704 has context
+THREAD w/ db_index 700 has qa_pairs
+THREAD w/ db_index 700 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 705 has context
+THREAD w/ db_index 699 has qa_pairs
+THREAD w/ db_index 699 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 706 has context
+THREAD w/ db_index 696 has qa_pairs
+THREAD w/ db_index 696 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 707 has context
+THREAD w/ db_index 695 has qa_pairs
+THREAD w/ db_index 695 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 708 has context
+THREAD w/ db_index 706 has qa_pairs
+THREAD w/ db_index 706 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 709 has context
+THREAD w/ db_index 709 has qa_pairs
+THREAD w/ db_index 709 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 710 has context
+THREAD w/ db_index 704 has qa_pairs
+THREAD w/ db_index 704 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 711 has context
+THREAD w/ db_index 710 has qa_pairs
+THREAD w/ db_index 710 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 712 has context
+THREAD w/ db_index 707 has qa_pairs
+THREAD w/ db_index 707 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 713 has context
+THREAD w/ db_index 711 has qa_pairs
+THREAD w/ db_index 711 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 714 has context
+THREAD w/ db_index 705 has qa_pairs
+THREAD w/ db_index 705 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 715 has context
+THREAD w/ db_index 703 has qa_pairs
+THREAD w/ db_index 703 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 716 has context
+THREAD w/ db_index 708 has qa_pairs
+THREAD w/ db_index 708 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 717 has context
+THREAD w/ db_index 702 has qa_pairs
+THREAD w/ db_index 702 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 718 has context
+THREAD w/ db_index 715 has qa_pairs
+THREAD w/ db_index 715 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 719 has context
+THREAD w/ db_index 712 has qa_pairs
+THREAD w/ db_index 712 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 720 has context
+THREAD w/ db_index 716 has qa_pairs
+THREAD w/ db_index 716 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 721 has context
+THREAD w/ db_index 713 has qa_pairs
+THREAD w/ db_index 713 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 722 has context
+THREAD w/ db_index 720 has qa_pairs
+THREAD w/ db_index 720 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 723 has context
+THREAD w/ db_index 717 has qa_pairs
+THREAD w/ db_index 717 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 724 has context
+THREAD w/ db_index 701 has qa_pairs
+THREAD w/ db_index 701 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 725 has context
+THREAD w/ db_index 722 has qa_pairs
+THREAD w/ db_index 722 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 726 has context
+THREAD w/ db_index 724 has qa_pairs
+THREAD w/ db_index 724 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 727 has context
+THREAD w/ db_index 721 has qa_pairs
+THREAD w/ db_index 721 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 728 has context
+THREAD w/ db_index 725 has qa_pairs
+THREAD w/ db_index 725 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 729 has context
+THREAD w/ db_index 726 has qa_pairs
+THREAD w/ db_index 726 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 730 has context
+THREAD w/ db_index 719 has qa_pairs
+THREAD w/ db_index 719 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 731 has context
+THREAD w/ db_index 728 has qa_pairs
+THREAD w/ db_index 728 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 732 has context
+THREAD w/ db_index 723 has qa_pairs
+THREAD w/ db_index 723 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 733 has context
+THREAD w/ db_index 718 has qa_pairs
+THREAD w/ db_index 718 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 734 has context
+THREAD w/ db_index 733 has qa_pairs
+THREAD w/ db_index 733 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 735 has context
+THREAD w/ db_index 732 has qa_pairs
+THREAD w/ db_index 732 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 736 has context
+THREAD w/ db_index 727 has qa_pairs
+THREAD w/ db_index 727 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 737 has context
+THREAD w/ db_index 737 has qa_pairs
+THREAD w/ db_index 737 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 738 has context
+THREAD w/ db_index 734 has qa_pairs
+THREAD w/ db_index 734 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 739 has context
+THREAD w/ db_index 735 has qa_pairs
+THREAD w/ db_index 735 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 740 has context
+THREAD w/ db_index 730 has qa_pairs
+THREAD w/ db_index 730 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 741 has context
+THREAD w/ db_index 736 has qa_pairs
+THREAD w/ db_index 736 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 742 has context
+THREAD w/ db_index 731 has qa_pairs
+THREAD w/ db_index 731 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 743 has context
+THREAD w/ db_index 738 has qa_pairs
+THREAD w/ db_index 738 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 744 has context
+THREAD w/ db_index 740 has qa_pairs
+THREAD w/ db_index 740 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 745 has context
+THREAD w/ db_index 714 has qa_pairs
+THREAD w/ db_index 714 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 746 has context
+THREAD w/ db_index 744 has qa_pairs
+THREAD w/ db_index 744 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 747 has context
+THREAD w/ db_index 747 has qa_pairs
+THREAD w/ db_index 747 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 748 has context
+THREAD w/ db_index 742 has qa_pairs
+THREAD w/ db_index 742 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 749 has context
+THREAD w/ db_index 741 has qa_pairs
+THREAD w/ db_index 741 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 750 has context
+THREAD w/ db_index 749 has qa_pairs
+THREAD w/ db_index 749 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 751 has context
+THREAD w/ db_index 729 has qa_pairs
+THREAD w/ db_index 729 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 752 has context
+THREAD w/ db_index 750 has qa_pairs
+THREAD w/ db_index 750 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 753 has context
+THREAD w/ db_index 745 has qa_pairs
+THREAD w/ db_index 745 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 754 has context
+THREAD w/ db_index 752 has qa_pairs
+THREAD w/ db_index 752 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 755 has context
+THREAD w/ db_index 743 has qa_pairs
+THREAD w/ db_index 743 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 756 has context
+THREAD w/ db_index 753 has qa_pairs
+THREAD w/ db_index 753 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 757 has context
+THREAD w/ db_index 739 has qa_pairs
+THREAD w/ db_index 739 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 758 has context
+THREAD w/ db_index 754 has qa_pairs
+THREAD w/ db_index 754 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 759 has context
+THREAD w/ db_index 746 has qa_pairs
+THREAD w/ db_index 746 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 760 has context
+THREAD w/ db_index 748 has qa_pairs
+THREAD w/ db_index 748 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 761 has context
+THREAD w/ db_index 759 has qa_pairs
+THREAD w/ db_index 759 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 762 has context
+THREAD w/ db_index 755 has qa_pairs
+THREAD w/ db_index 755 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 763 has context
+THREAD w/ db_index 761 has qa_pairs
+THREAD w/ db_index 761 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 764 has context
+THREAD w/ db_index 751 has qa_pairs
+THREAD w/ db_index 751 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 765 has context
+THREAD w/ db_index 756 has qa_pairs
+THREAD w/ db_index 756 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 766 has context
+THREAD w/ db_index 758 has qa_pairs
+THREAD w/ db_index 758 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 767 has context
+THREAD w/ db_index 757 has qa_pairs
+THREAD w/ db_index 757 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 768 has context
+THREAD w/ db_index 762 has qa_pairs
+THREAD w/ db_index 762 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 763 has qa_pairs
+THREAD w/ db_index 763 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 770 has context
+THREAD w/ db_index 769 has context
+THREAD w/ db_index 768 has qa_pairs
+THREAD w/ db_index 768 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 771 has context
+THREAD w/ db_index 766 has qa_pairs
+THREAD w/ db_index 766 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 772 has context
+THREAD w/ db_index 771 has qa_pairs
+THREAD w/ db_index 771 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 773 has context
+THREAD w/ db_index 767 has qa_pairs
+THREAD w/ db_index 767 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 774 has context
+THREAD w/ db_index 765 has qa_pairs
+THREAD w/ db_index 765 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 775 has context
+THREAD w/ db_index 773 has qa_pairs
+THREAD w/ db_index 773 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 776 has context
+THREAD w/ db_index 764 has qa_pairs
+THREAD w/ db_index 764 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 777 has context
+THREAD w/ db_index 769 has qa_pairs
+THREAD w/ db_index 769 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 778 has context
+THREAD w/ db_index 770 has qa_pairs
+THREAD w/ db_index 770 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 779 has context
+THREAD w/ db_index 774 has qa_pairs
+THREAD w/ db_index 774 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 780 has context
+THREAD w/ db_index 775 has qa_pairs
+THREAD w/ db_index 775 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 781 has context
+THREAD w/ db_index 776 has qa_pairs
+THREAD w/ db_index 776 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 782 has context
+THREAD w/ db_index 778 has qa_pairs
+THREAD w/ db_index 778 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 783 has context
+THREAD w/ db_index 780 has qa_pairs
+THREAD w/ db_index 780 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 784 has context
+THREAD w/ db_index 772 has qa_pairs
+THREAD w/ db_index 772 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 785 has context
+THREAD w/ db_index 779 has qa_pairs
+THREAD w/ db_index 779 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 786 has context
+THREAD w/ db_index 782 has qa_pairs
+THREAD w/ db_index 782 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 787 has context
+THREAD w/ db_index 784 has qa_pairs
+THREAD w/ db_index 784 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 788 has context
+THREAD w/ db_index 787 has qa_pairs
+THREAD w/ db_index 787 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 789 has context
+THREAD w/ db_index 783 has qa_pairs
+THREAD w/ db_index 783 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 790 has context
+THREAD w/ db_index 789 has qa_pairs
+THREAD w/ db_index 789 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 791 has context
+THREAD w/ db_index 760 has qa_pairs
+THREAD w/ db_index 760 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 792 has context
+THREAD w/ db_index 790 has qa_pairs
+THREAD w/ db_index 790 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 793 has context
+THREAD w/ db_index 788 has qa_pairs
+THREAD w/ db_index 788 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 794 has context
+THREAD w/ db_index 792 has qa_pairs
+THREAD w/ db_index 792 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 795 has context
+THREAD w/ db_index 791 has qa_pairs
+THREAD w/ db_index 791 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 796 has context
+THREAD w/ db_index 785 has qa_pairs
+THREAD w/ db_index 785 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 797 has context
+THREAD w/ db_index 777 has qa_pairs
+THREAD w/ db_index 777 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 798 has context
+THREAD w/ db_index 786 has qa_pairs
+THREAD w/ db_index 786 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 799 has context
+THREAD w/ db_index 796 has qa_pairs
+THREAD w/ db_index 796 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 800 has context
+THREAD w/ db_index 794 has qa_pairs
+THREAD w/ db_index 794 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 801 has context
+THREAD w/ db_index 793 has qa_pairs
+THREAD w/ db_index 793 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 802 has context
+THREAD w/ db_index 798 has qa_pairs
+THREAD w/ db_index 798 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 803 has context
+THREAD w/ db_index 802 has qa_pairs
+THREAD w/ db_index 802 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 800 has qa_pairs
+THREAD w/ db_index 800 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 799 has qa_pairs
+THREAD w/ db_index 799 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 801 has qa_pairs
+THREAD w/ db_index 801 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 797 has qa_pairs
+THREAD w/ db_index 797 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 803 has qa_pairs
+THREAD w/ db_index 803 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 795 has qa_pairs
+THREAD w/ db_index 795 has stored its context and qa_pairs in QA-Output
+THREAD w/ db_index 781 has qa_pairs
+THREAD w/ db_index 781 has stored its context and qa_pairs in QA-Output
+================================== ENDING DATA ==================================
+Total Count: 4982
+Training: 78.68%
+Validation: 11.4%
+Testing: 9.92%
+============================= RESULTS OF CURRENT RUN =============================
+Total # of questions: 5807
+Total # of accepted questions: 4982
+Total # of rejected questions: 825
+Question rejection rate: 14.21%
+Average QA pair BERT score: 2.51
+Pipeline runtime (s): 13192.81
+Accepted questions per second: 0.38

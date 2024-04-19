@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=PAS2706
 #SBATCH --job-name=train
-#SBATCH --time=2:00:00
+#SBATCH --time=12:00:00
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --gpus-per-node=1
