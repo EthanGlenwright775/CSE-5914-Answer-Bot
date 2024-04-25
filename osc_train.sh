@@ -1,3 +1,5 @@
+# Batch process script for use on OSC for training the chat bot
+
 #!/bin/bash
 #SBATCH --account=PAS2706
 #SBATCH --job-name=train

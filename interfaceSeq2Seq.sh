@@ -1,3 +1,5 @@
+# Script for interfacing with chat bot
+
 # Make sure LOGGER_NAME and --model_name are correct
 LOGGER_NAME="t5_answer_bot_v1"
 python3 lightning_t5_trainer.py \

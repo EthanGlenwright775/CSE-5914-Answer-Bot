@@ -1,3 +1,5 @@
+# Dependencies for the qa pipeline
+
 name: pipeline_1
 channels:
   - pytorch

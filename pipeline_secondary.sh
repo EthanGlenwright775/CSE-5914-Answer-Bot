@@ -1,3 +1,5 @@
+#Script to run the pipeline with summarizing instead of rephrasing
+
 #!/bin/bash
 python3 ./QA-Pipeline/qa_pipeline.py \
     --article_index 0 \

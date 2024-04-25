@@ -1,5 +1,7 @@
 # Credit to Amad Hussain for providing this code
 
+# Dependencies necessary for the lightning trainer
+
 name: training_1
 channels:
   - pytorch

@@ -1,3 +1,5 @@
+# Batch process script for use on OSC and generating training data
+
 #!/bin/bash
 #SBATCH --account=PAS2706
 #SBATCH --job-name=generate_training_data

@@ -1,3 +1,5 @@
+# Script to run the qa pipeline with default settings
+
 #!/bin/bash
 python3 ./QA-Pipeline/qa_pipeline.py \
     --article_index 0 \

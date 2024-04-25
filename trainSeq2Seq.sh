@@ -1,5 +1,7 @@
 # Credit to Amad Hussain for providing this code
 
+# Script for starting up the training for the seq 2 seq model
+
 # Make sure LOGGER_NAME and --model_name are correct
 LOGGER_NAME="t5_answer_bot_v1"
 python3 lightning_t5_trainer.py \
