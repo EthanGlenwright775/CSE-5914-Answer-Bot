@@ -1,3 +1,5 @@
+# Connection to the CC News dataset through the Hugging Face API
+
 import requests
 import sys
 

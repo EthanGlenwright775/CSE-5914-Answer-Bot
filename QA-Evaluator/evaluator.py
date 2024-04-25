@@ -1,3 +1,5 @@
+# Dataset diversity evaluator
+
 import argparse
 from lexical_diversity import lex_div as ld
 import pandas as pd
@@ -12,6 +14,7 @@ def __read_file__(file):
     df = pd.read_csv(file, sep='\t')
     return df['context'].tolist()
 
+# extract questions embedded in context strings
 def __get_questions__(contexts):
     questions = []
     for context in contexts:
@@ -20,7 +23,7 @@ def __get_questions__(contexts):
         questions.append(question[0])
     return questions
 
-
+# print statistics to console and file
 def __generate_stats__(text, f_out, win_size):
     tokens = []
     for item in text:
@@ -53,13 +56,16 @@ def main():
     f_out = args.o
     win_size = args.s
 
+    # retrieve contexts from tsv data files
     contexts = []
     contexts.extend(__read_file__(FIN1))
     contexts.extend(__read_file__(FIN2))
     contexts.extend(__read_file__(FIN3))
 
+    # extract questions
     questions = __get_questions__(contexts)
 
+    # calculate and print stats
     __generate_stats__(questions, f_out, win_size)
 
 
