@@ -130,6 +130,8 @@ class QA_Pipeline:
             else:
                 print("CUDA device(s) found, but PyTorch is not compiled with CUDA support.")
 
+    # ==================== CONSOLE and UI ====================
+
     def print_pipeline_options(self, args):
         for arg, value in args.items():
             print(f"{arg} = {value}")
@@ -143,6 +145,9 @@ class QA_Pipeline:
             print('=', end='')
         print()
 
+    # ==================== PIPELINE FRAMEWORK ====================
+
+    # manages dataset storage and threads 
     def run(self):
         # Ready output files
         self.pre_storage()
@@ -177,6 +182,7 @@ class QA_Pipeline:
         print(f"Pipeline runtime (s): {total_runtime}")
         print(f"Accepted questions per second: {round(self.accepted_q_count / total_runtime, 2)}")
 
+    # individual pipeline thread that handles a single article
     def qa_pipeline_thread_task(self):
         done = False
         while(1):
@@ -200,34 +206,11 @@ class QA_Pipeline:
             # Store context-QA pairs in QA db
             self.csv_storage(context_qa_pairs)
             print(f"THREAD w/ db_index {thread_db_index} has stored its context and qa_pairs in QA-Output")
-    
-    def qa_pair_rephrase(self, text):
-        conext_q_a_pairs = []
-        text = re.sub(r'[\t\n]', '', text)
-        chunks = self.chunk_text(text, REPHRASE_CHUNK_SIZE)
-        for i in range(len(chunks)):
-            qa_pairs = []
-            answers = sent_tokenize(self.rephrase(chunks[i]))
-            if i == len(chunks) - 1:
-                context = " ".join([chunks[i - 1], chunks[i]])
-                qa_pairs += self.question_gen_phrases(answers, context)
-            else:
-                context = " ".join([chunks[i], chunks[i+1]])
-                qa_pairs += self.question_gen_phrases(answers, context)
-            for qa_pair in qa_pairs:
-                conext_q_a_pairs.append({"context": context, "question": qa_pair.get("question"), "answer": qa_pair.get("answer")})
-        return conext_q_a_pairs
-    
-    def rephrase(self, text: str) -> str:
-        text_tokenized = tokenizer_rephrase(text=text, 
-                                     padding="max_length", 
-                                     truncation=True,
-                                     max_length=256, 
-                                     return_tensors='pt').to(device)
-        rephrased_tokenized = model_rephrase.generate(text_tokenized['input_ids'], attention_mask = text_tokenized['attention_mask'], max_length=256, num_beams=5)
-        rephrased = tokenizer_rephrase.batch_decode(rephrased_tokenized, skip_special_tokens=True)
-        return rephrased[0]
-    
+
+    # ==================== PIPELINE FUNCTIONS ====================
+
+    # chunking function used to split source text to smaller segments
+    # used to accomodate the models' token limits 
     def chunk_text(self, text: str, chunk_size):
         startingSentence = 0
         wordsInChunk = 0
@@ -247,6 +230,37 @@ class QA_Pipeline:
         #    print(f"CHUNK: {chunk}")
         return chunks
     
+    # rephraser version of the pipeline
+    # generates questions using chunked, rephrased text 
+    def qa_pair_rephrase(self, text):
+        conext_q_a_pairs = []
+        text = re.sub(r'[\t\n]', '', text)
+        chunks = self.chunk_text(text, REPHRASE_CHUNK_SIZE)
+        for i in range(len(chunks)):
+            qa_pairs = []
+            answers = sent_tokenize(self.rephrase(chunks[i]))
+            if i == len(chunks) - 1:
+                context = " ".join([chunks[i - 1], chunks[i]])
+                qa_pairs += self.question_gen_phrases(answers, context)
+            else:
+                context = " ".join([chunks[i], chunks[i+1]])
+                qa_pairs += self.question_gen_phrases(answers, context)
+            for qa_pair in qa_pairs:
+                conext_q_a_pairs.append({"context": context, "question": qa_pair.get("question"), "answer": qa_pair.get("answer")})
+        return conext_q_a_pairs
+    
+    # access rephraser model
+    def rephrase(self, text: str) -> str:
+        text_tokenized = tokenizer_rephrase(text=text, 
+                                     padding="max_length", 
+                                     truncation=True,
+                                     max_length=256, 
+                                     return_tensors='pt').to(device)
+        rephrased_tokenized = model_rephrase.generate(text_tokenized['input_ids'], attention_mask = text_tokenized['attention_mask'], max_length=256, num_beams=5)
+        rephrased = tokenizer_rephrase.batch_decode(rephrased_tokenized, skip_special_tokens=True)
+        return rephrased[0]
+    
+    # generate questions using preprocessed text
     def question_gen_phrases(self, answer_list, context):
         qa_pair_list = []
         for index in range(len(answer_list)):
@@ -270,6 +284,8 @@ class QA_Pipeline:
 
         return qa_pair_list
     
+    # summarizer version of the pipeline
+    # generates questions using chunked, summarized text
     def qa_pair_summarize(self, article):
         context_q_a_pairs = []
         chunks = self.chunk_text(article, SUMMARIZE_CHUNK_SIZE)
@@ -278,6 +294,7 @@ class QA_Pipeline:
             context_q_a_pairs += self.question_gen_summaries(summary)
         return context_q_a_pairs
 
+    # access summarizer model
     def summarize(self, text: str) -> str:
         tokens = sum_tokenizer(text, 
                 padding="max_length", 
@@ -289,6 +306,7 @@ class QA_Pipeline:
         summary = sum_tokenizer.batch_decode(summary_tokens, skip_special_tokens=True)
         return summary[0]
     
+    # generate questions using preprocessed text (summarizer variant)
     def question_gen_summaries(self, summary: str):
         context_qa_pair_list = []
         inputs = q_gen_2_tokenizer(summary, return_tensors="pt").to(device)
@@ -305,6 +323,8 @@ class QA_Pipeline:
             self.count_rejected_questions()
         return context_qa_pair_list
     
+    # QA pair BERT scoring
+    # used to filter out poor QA pairs
     def eval_qa_pair(self, q: str, a: str):
         encoded_input = tokenizer_eval(text=q, text_pair=a, truncation=True, return_tensors="pt").to(device)
         output = model_eval(**encoded_input)
@@ -317,6 +337,8 @@ class QA_Pipeline:
             # print("a: " + a)
             # print("score: " + output)
             return False
+    
+    # ==================== PIPELINE PERFORMANCE ====================
     
     def count_accepted_questions(self):
         with q_count_lock:
@@ -340,6 +362,8 @@ class QA_Pipeline:
         average_bert = self.average_q_score / (self.accepted_q_count + self.rejected_q_count)
         average_bert = round(average_bert, 2)
         print(f"Average QA pair BERT score: {average_bert}")
+
+    # ==================== DATASET STORAGE ====================
 
     # done before threading
     def pre_storage(self):

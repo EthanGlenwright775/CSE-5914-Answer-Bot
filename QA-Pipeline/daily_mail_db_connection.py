@@ -1,3 +1,5 @@
+# Connection to the Daily Mail dataset through the Hugging Face API
+
 import requests
 import sys
 
