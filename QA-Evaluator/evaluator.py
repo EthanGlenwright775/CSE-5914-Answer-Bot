@@ -1,16 +1,30 @@
 import argparse
-import ijson
 from lexical_diversity import lex_div as ld
+import pandas as pd
 
 from datetime import datetime
 TIMESTAMP = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+FIN1 = "./QA-Output/testing.tsv"
+FIN2 = "./QA-Output/training.tsv"
+FIN3 = "./QA-Output/validation.tsv"
+
+def __read_file__(file):
+    df = pd.read_csv(file, sep='\t')
+    return df['context'].tolist()
+
+def __get_questions__(contexts):
+    questions = []
+    for context in contexts:
+        question = context.split("Question: ")
+        question = question[1].split(" Article:")
+        questions.append(question[0])
+    return questions
 
 
-def __generate_question_stats__(f_in, f_out, win_size):
+def __generate_stats__(text, f_out, win_size):
     tokens = []
-    with open(f_in, "rb") as file_in:
-        for question in ijson.items(file_in, "item.qa_pairs.item.question"):
-            tokens = tokens + ld.tokenize(question)
+    for item in text:
+        tokens = tokens + ld.tokenize(item)
 
     mtld = ld.mtld(tokens)
     ttr = ld.ttr(tokens)
@@ -29,73 +43,24 @@ def __generate_question_stats__(f_in, f_out, win_size):
         file_out.write("Simple TTR: " + str(ttr) + "\n")
         file_out.write("MSTTR " + str(win_size) +":  " + str(msttr) + "\n")
         file_out.write("MATTR " + str(win_size) +":  " + str(mattr) + "\n")
-    
-    return [mtld, ttr, msttr, mattr]
-
-def __generate_source_stats__(f_in, f_out, win_size):
-    mtld = []
-    ttr = []
-    msttr = []
-    mattr = []
-    with open(f_in, "rb") as file_in:
-        for context in ijson.items(file_in, "item.context"):
-            tokens = ld.tokenize(context)
-            mtld.append(ld.mtld(tokens))
-            ttr.append(ld.ttr(tokens))
-            msttr.append(ld.msttr(tokens))
-            mattr.append(ld.mattr(tokens))
-    
-    avg_mtld = sum(mtld) / len(mtld)
-    avg_ttr = sum(ttr) / len(ttr)
-    avg_msttr = sum(msttr) / len(msttr)
-    avg_mattr = sum(mattr) / len(mattr)
-
-    print("Source metrics")
-    print("MTLD:      ", str(avg_mtld))
-    print("Simple TTR:", str(avg_ttr))
-    print("MSTTR " + str(win_size) +": ", avg_msttr)
-    print("MATTR " + str(win_size) +": ", avg_mattr)
-
-    with open(f_out, "a") as file_out:
-        file_out.write("Source metrics\n")
-        file_out.write("MTLD:       " + str(avg_mtld) + "\n")
-        file_out.write("Simple TTR: " + str(avg_ttr) + "\n")
-        file_out.write("MSTTR " + str(win_size) +":  " + str(avg_msttr) + "\n")
-        file_out.write("MATTR " + str(win_size) +":  " + str(avg_mattr) + "\n")
-    
-    return [avg_mtld, avg_ttr, avg_msttr, avg_mattr]
-
-def __generate_difference_stats__(f_out, win_size, source_stats, question_stats):
-    difference = []
-    for i in range(4): difference.append(source_stats[i]-question_stats[i]) 
-
-    print("Difference")
-    print("MTLD:      ", str(difference[0]))
-    print("Simple TTR:", str(difference[1]))
-    print("MSTTR " + str(win_size) +": ", difference[2])
-    print("MATTR " + str(win_size) +": ", difference[3])
-
-    with open(f_out, "a") as file_out:
-        file_out.write("Difference\n")
-        file_out.write("MTLD:       " + str(difference[0]) + "\n")
-        file_out.write("Simple TTR: " + str(difference[1]) + "\n")
-        file_out.write("MSTTR " + str(win_size) +":  " + str(difference[2]) + "\n")
-        file_out.write("MATTR " + str(win_size) +":  " + str(difference[3]) + "\n")
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", type=str, help="File path to dataset json")
     parser.add_argument("-o", type=str, nargs='?', help="Optional file path to save program output", default="Dataset-Evaluator/eval_results_"+TIMESTAMP+".txt")
     parser.add_argument("-s", type=int, nargs='?', help="Optional window size for advanced TTR calculations, default is 100 tokens", default=100)
     args = parser.parse_args()
 
-    f_in = args.f
     f_out = args.o
     win_size = args.s
 
-    source_stats = __generate_source_stats__(f_in, f_out, win_size)
-    question_stats = __generate_question_stats__(f_in, f_out, win_size)
-    __generate_difference_stats__(f_out, win_size, source_stats, question_stats)
+    contexts = []
+    contexts.extend(__read_file__(FIN1))
+    contexts.extend(__read_file__(FIN2))
+    contexts.extend(__read_file__(FIN3))
+
+    questions = __get_questions__(contexts)
+
+    __generate_stats__(questions, f_out, win_size)
 
 
 if __name__ == "__main__":

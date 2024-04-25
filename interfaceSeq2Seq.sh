@@ -1,5 +1,5 @@
 # Make sure LOGGER_NAME and --model_name are correct
-LOGGER_NAME="t5_answer_bot_v6"
+LOGGER_NAME="t5_answer_bot_v1"
 python3 lightning_t5_trainer.py \
 	--model_directory "QA-Bot/" \
 	--model_path "QA-Bot/${LOGGER_NAME}/" \

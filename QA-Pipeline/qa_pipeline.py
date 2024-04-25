@@ -12,31 +12,73 @@ from cnn_news_db_connection import cnn_get_article
 from daily_mail_db_connection import daily_get_article
 from cc_news_db_connection import cc_get_article
 
+# HuggingFace pre-trained models
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForSequenceClassification, T5Tokenizer, T5ForConditionalGeneration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+# Question generator model used for generating from rephrased text
 tokenizer_q_gen = AutoTokenizer.from_pretrained("iarfmoose/t5-base-question-generator")
 model_q_gen = AutoModelForSeq2SeqLM.from_pretrained("iarfmoose/t5-base-question-generator")
 model_q_gen = model_q_gen.to(device)
+
+# Question evaluator model
 tokenizer_eval = AutoTokenizer.from_pretrained("iarfmoose/bert-base-cased-qa-evaluator")
 model_eval = AutoModelForSequenceClassification.from_pretrained("iarfmoose/bert-base-cased-qa-evaluator")
 model_eval = model_eval.to(device)
+
+# Rephrasing model
 tokenizer_rephrase = T5Tokenizer.from_pretrained("unikei/t5-base-split-and-rephrase")
 model_rephrase = T5ForConditionalGeneration.from_pretrained("unikei/t5-base-split-and-rephrase")
 model_rephrase = model_rephrase.to(device)
 
+# Summarization model
+sum_tokenizer = AutoTokenizer.from_pretrained("Falconsai/text_summarization")
+sum_model = AutoModelForSeq2SeqLM.from_pretrained("Falconsai/text_summarization")
+sum_model = sum_model.to(device)
+
+# Question generator model used for generating from summaries
+q_gen_2_tokenizer = AutoTokenizer.from_pretrained("potsawee/t5-large-generation-squad-QuestionAnswer")
+q_gen_2_model = AutoModelForSeq2SeqLM.from_pretrained("potsawee/t5-large-generation-squad-QuestionAnswer")
+q_gen_2_model = q_gen_2_model.to(device)
+
+# Locks to enable multi-threaded implementation of pipeline
+
+# Protects article db index - each thread grabs a different article
 article_db_lock = threading.Lock()
+
+# Protects total accepted question count
 q_count_lock = threading.Lock()
+
+# Protects total rejected question count
 rejected_count_lock = threading.Lock()
+
+# Protects average BERT score for question answer pairs
 average_q_score_lock = threading.Lock()
+
+# Protects ouput JSON file
 output_json_lock = threading.Lock()
+
+# Protects ouput training data file
 training_csv_lock = threading.Lock()
+
+# Protects output validation data file
 validation_csv_lock = threading.Lock()
+
+# Protects output testing data file
 testing_csv_lock = threading.Lock()
+
+# Protects training, validation, and testing example counts
 example_count_lock = threading.Lock()
 
-HEADER_LENGTH = 80
-CHUNK_SIZE = 175
-DATA_RATIO = 10 # 80 - 10 - 10 (training - validation - testing) split of qa pairs
+# Width of pipeline output headers
+HEADER_WIDTH = 80
+
+# Chunk sizes
+REPHRASE_CHUNK_SIZE = 175
+SUMMARIZE_CHUNK_SIZE = 400
+
+# 80 - 10 - 10 (training - validation - testing) split of qa pairs
+DATA_RATIO = 10 
 
 class QA_Pipeline:
     def __init__(self, args):
@@ -46,7 +88,12 @@ class QA_Pipeline:
         self.article_count = args['article_count']
         self.thread_count = args['thread_count']
         self.q_eval_threshold = args['q_eval_threshold']
+
         self.output_directory = args['output_directory']
+        # create the ouput directory if it does not exist already
+        if not os.path.exists(self.output_directory):
+            os.makedirs(self.output_directory)
+
         self.training_file = os.path.join(self.output_directory, args['training_file'])
         self.validation_file = os.path.join(self.output_directory, args['validation_file'])
         self.testing_file = os.path.join(self.output_directory, args['testing_file'])
@@ -88,7 +135,7 @@ class QA_Pipeline:
             print(f"{arg} = {value}")
 
     def print_header(self, title):
-        half = (HEADER_LENGTH - len(title)) // 2
+        half = (HEADER_WIDTH - len(title)) // 2
         for i in range(half):
             print('=', end='')
         print(f" {title} ", end='')
@@ -157,16 +204,16 @@ class QA_Pipeline:
     def qa_pair_chunk_rephrase(self, text):
         conext_q_a_pairs = []
         text = re.sub(r'[\t\n]', '', text)
-        chunks = self.chunk_text(text)
+        chunks = self.chunk_text(text, REPHRASE_CHUNK_SIZE)
         for i in range(len(chunks)):
             qa_pairs = []
             answers = sent_tokenize(self.rephrase(chunks[i]))
             if i == len(chunks) - 1:
                 context = " ".join([chunks[i - 1], chunks[i]])
-                qa_pairs += self.generate_questions(answers, context)
+                qa_pairs += self.question_gen_phrases(answers, context)
             else:
                 context = " ".join([chunks[i], chunks[i+1]])
-                qa_pairs += self.generate_questions(answers, context)
+                qa_pairs += self.question_gen_phrases(answers, context)
             for qa_pair in qa_pairs:
                 conext_q_a_pairs.append({"context": context, "question": qa_pair.get("question"), "answer": qa_pair.get("answer")})
         return conext_q_a_pairs
@@ -181,7 +228,7 @@ class QA_Pipeline:
         rephrased = tokenizer_rephrase.batch_decode(rephrased_tokenized, skip_special_tokens=True)
         return rephrased[0]
     
-    def chunk_text(self, text: str):
+    def chunk_text(self, text: str, chunk_size):
         startingSentence = 0
         wordsInChunk = 0
         chunks = []
@@ -189,7 +236,7 @@ class QA_Pipeline:
         for i in range(0,  len(sentences)):
             words = sentences[i].split()
             wordsInSentence = len(words)
-            if wordsInChunk + wordsInSentence < CHUNK_SIZE:
+            if wordsInChunk + wordsInSentence < chunk_size:
                 wordsInChunk += wordsInSentence
             else:
                 wordsInChunk = 0
@@ -200,7 +247,7 @@ class QA_Pipeline:
         #    print(f"CHUNK: {chunk}")
         return chunks
     
-    def generate_questions(self, answer_list, context):
+    def question_gen_phrases(self, answer_list, context):
         qa_pair_list = []
         for index in range(len(answer_list)):
             answer = answer_list[index]
@@ -222,6 +269,38 @@ class QA_Pipeline:
                 self.count_rejected_questions()
 
         return qa_pair_list
+    
+    def qa_pair_summarize(self, article):
+        context_q_a_pairs = []
+        chunks = self.chunk_text(article, SUMMARIZE_CHUNK_SIZE)
+        for chunk in chunks:
+            summary = self.summarize(chunk)
+            context_q_a_pairs.append(self.question_gen_summaries(summary))
+        return context_q_a_pairs
+
+    def summarize(text: str) -> str:
+        tokens = sum_tokenizer(text, 
+                padding="max_length", 
+                truncation=True,
+                max_length=512, 
+                return_tensors='pt'
+                ).to(device)
+        summary_tokens = sum_model.generate(tokens['input_ids'], attention_mask = tokens['attention_mask'], max_length=512, num_beams=5)
+        summary = sum_tokenizer.batch_decode(summary_tokens, skip_special_tokens=True)
+        return summary[0]
+    
+    def question_gen_summaries(summary: str):
+        context_qa_pair_list = []
+        inputs = q_gen_2_tokenizer(summary, return_tensors="pt").to(device)
+        outputs = q_gen_2_model.generate(**inputs)
+        question_answer = q_gen_2_tokenizer.decode(outputs[0], skip_special_tokens=False)
+        question_answer = question_answer.replace(q_gen_2_tokenizer.pad_token, "").replace(q_gen_2_tokenizer.eos_token, "")
+        question_answer_split = question_answer.split(q_gen_2_tokenizer.sep_token)
+        if len(question_answer_split) != 2: return []
+        question, answer = question_answer_split
+
+        context_qa_pair_list.append({"context": summary, "question": question, "answer": answer})
+        return context_qa_pair_list
     
     def eval_qa_pair(self, q: str, a: str):
         encoded_input = tokenizer_eval(text=q, text_pair=a, truncation=True, return_tensors="pt").to(device)
@@ -258,9 +337,6 @@ class QA_Pipeline:
         average_bert = self.average_q_score / (self.accepted_q_count + self.rejected_q_count)
         average_bert = round(average_bert, 2)
         print(f"Average QA pair BERT score: {average_bert}")
-
-    def qa_pair_summarize(self, article):
-        nothing = 0
 
     # done before threading
     def pre_storage(self):
