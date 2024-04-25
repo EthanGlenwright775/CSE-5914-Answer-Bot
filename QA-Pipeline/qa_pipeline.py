@@ -292,7 +292,7 @@ class QA_Pipeline:
     def question_gen_summaries(self, summary: str):
         context_qa_pair_list = []
         inputs = q_gen_2_tokenizer(summary, return_tensors="pt").to(device)
-        outputs = q_gen_2_model.generate(**inputs, max_new_tokens=len(summary))
+        outputs = q_gen_2_model.generate(**inputs, max_new_tokens=400)
         question_answer = q_gen_2_tokenizer.decode(outputs[0], skip_special_tokens=False)
         question_answer = question_answer.replace(q_gen_2_tokenizer.pad_token, "").replace(q_gen_2_tokenizer.eos_token, "")
         question_answer_split = question_answer.split(q_gen_2_tokenizer.sep_token)

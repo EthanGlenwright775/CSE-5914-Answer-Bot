@@ -10,7 +10,7 @@ python3 lightning_t5_trainer.py \
 	--data_seed 42 \
 	--train_seed 42 \
 	--dev_ratio 0.1 \
-	--max_epochs 3 \
+	--max_epochs 30 \
 	--lr 0.001 \
 	--batch_size 16 \
 	--max_tkn_length 512 \

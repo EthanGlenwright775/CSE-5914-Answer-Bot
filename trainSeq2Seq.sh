@@ -5,9 +5,9 @@ LOGGER_NAME="t5_answer_bot_v1"
 python3 lightning_t5_trainer.py \
 	--model_directory "QA-Bot/" \
 	--model_path "QA-Bot/${LOGGER_NAME}/" \
-	--train_data "QA-Output-v1/training.tsv" \
-	--dev_data "QA-Output-v1/validation.tsv" \
-	--test_data "QA-Output-v1/testing.tsv" \
+	--train_data "QA-Output-/training.tsv" \
+	--dev_data "QA-Output-/validation.tsv" \
+	--test_data "QA-Output/testing.tsv" \
 	--model_name "google/flan-t5-large" \
 	--data_seed 42 \
 	--train_seed 42 \
