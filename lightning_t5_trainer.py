@@ -1,3 +1,5 @@
+# Credit to Amad Hussain for providing this code
+
 # Fine-tune huggingface generative LMs using pyotrch-lightning, lora, and peft
 
 import torch

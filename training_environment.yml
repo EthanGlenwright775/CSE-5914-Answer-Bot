@@ -1,3 +1,5 @@
+# Credit to Amad Hussain for providing this code
+
 name: training_1
 channels:
   - pytorch

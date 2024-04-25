@@ -107,7 +107,7 @@ class QA_Pipeline:
             self.get_article = cc_get_article
 
         self.qa_gen_method = args['qa_gen_method']
-        # default pair generation method is chunk and rephrase
+        # default pair generation method is rephrase
         self.generate_qa_pairs = self.qa_pair_rephrase
         if self.qa_gen_method == 'summarize':
             self.generate_qa_pairs = self.qa_pair_summarize

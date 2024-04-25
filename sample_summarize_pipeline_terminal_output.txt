@@ -323,4 +323,4 @@ Total # of rejected questions: 69
 Question rejection rate: 25.65%
 Average QA pair BERT score: 1.57
 Pipeline runtime (s): 347.67
-Accepted questions per second: 0.58
+Accepted questions per second: 0.582269

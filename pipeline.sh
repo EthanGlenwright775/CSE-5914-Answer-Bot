@@ -9,4 +9,4 @@ python3 ./QA-Pipeline/qa_pipeline.py \
     --validation_file "validation.tsv" \
     --testing_file "testing.tsv" \
     --article_db "cnn_news" \
-    --qa_gen_method "chunk_rephrase"
+    --qa_gen_method "rephrase"
