@@ -22,7 +22,7 @@ def cc_get_article(db_index):
 
         if response.status_code == 200:
             data = response.json()
-            return [row['row']['document'] for row in data['rows']]
+            return [row['row']['document'] for row in data['rows']][0]
         else:
             print(f"Error grabbing article with db index {db_index}: Attempt {attempt+1}/{MAX_RETRIES}")
 

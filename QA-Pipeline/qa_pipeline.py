@@ -108,7 +108,7 @@ class QA_Pipeline:
 
         self.qa_gen_method = args['qa_gen_method']
         # default pair generation method is chunk and rephrase
-        self.generate_qa_pairs = self.qa_pair_chunk_rephrase
+        self.generate_qa_pairs = self.qa_pair_rephrase
         if self.qa_gen_method == 'summarize':
             self.generate_qa_pairs = self.qa_pair_summarize
 
@@ -201,7 +201,7 @@ class QA_Pipeline:
             self.csv_storage(context_qa_pairs)
             print(f"THREAD w/ db_index {thread_db_index} has stored its context and qa_pairs in QA-Output")
     
-    def qa_pair_chunk_rephrase(self, text):
+    def qa_pair_rephrase(self, text):
         conext_q_a_pairs = []
         text = re.sub(r'[\t\n]', '', text)
         chunks = self.chunk_text(text, REPHRASE_CHUNK_SIZE)
@@ -275,10 +275,10 @@ class QA_Pipeline:
         chunks = self.chunk_text(article, SUMMARIZE_CHUNK_SIZE)
         for chunk in chunks:
             summary = self.summarize(chunk)
-            context_q_a_pairs.append(self.question_gen_summaries(summary))
+            context_q_a_pairs += self.question_gen_summaries(summary)
         return context_q_a_pairs
 
-    def summarize(text: str) -> str:
+    def summarize(self, text: str) -> str:
         tokens = sum_tokenizer(text, 
                 padding="max_length", 
                 truncation=True,
@@ -289,17 +289,20 @@ class QA_Pipeline:
         summary = sum_tokenizer.batch_decode(summary_tokens, skip_special_tokens=True)
         return summary[0]
     
-    def question_gen_summaries(summary: str):
+    def question_gen_summaries(self, summary: str):
         context_qa_pair_list = []
         inputs = q_gen_2_tokenizer(summary, return_tensors="pt").to(device)
-        outputs = q_gen_2_model.generate(**inputs)
+        outputs = q_gen_2_model.generate(**inputs, max_new_tokens=len(summary))
         question_answer = q_gen_2_tokenizer.decode(outputs[0], skip_special_tokens=False)
         question_answer = question_answer.replace(q_gen_2_tokenizer.pad_token, "").replace(q_gen_2_tokenizer.eos_token, "")
         question_answer_split = question_answer.split(q_gen_2_tokenizer.sep_token)
         if len(question_answer_split) != 2: return []
         question, answer = question_answer_split
-
-        context_qa_pair_list.append({"context": summary, "question": question, "answer": answer})
+        if self.eval_qa_pair(question,answer):
+            self.count_accepted_questions()
+            context_qa_pair_list.append({"context": summary, "question": question, "answer": answer})
+        else:
+            self.count_rejected_questions()
         return context_qa_pair_list
     
     def eval_qa_pair(self, q: str, a: str):
@@ -358,9 +361,10 @@ class QA_Pipeline:
             self.testing_count = len(df)
             total_count = self.training_count + self.validation_count + self.testing_count
             print(f"Total Count: {total_count}")
-            print(f"Training: {round(self.training_count / total_count * 100, 2)}%")
-            print(f"Validation: {round(self.validation_count / total_count * 100, 2)}%")
-            print(f"Testing: {round(self.testing_count / total_count * 100, 2)}%")
+            if total_count != 0:
+                print(f"Training: {round(self.training_count / total_count * 100, 2)}%")
+                print(f"Validation: {round(self.validation_count / total_count * 100, 2)}%")
+                print(f"Testing: {round(self.testing_count / total_count * 100, 2)}%")
 
     def csv_storage(self, context_pairs):
         with example_count_lock:
@@ -397,9 +401,10 @@ class QA_Pipeline:
         self.print_header("ENDING DATA")
         total_count = self.training_count + self.validation_count + self.testing_count
         print(f"Total Count: {total_count}")
-        print(f"Training: {round(self.training_count / total_count * 100, 2)}%")
-        print(f"Validation: {round(self.validation_count / total_count * 100, 2)}%")
-        print(f"Testing: {round(self.testing_count / total_count * 100, 2)}%")
+        if total_count != 0:
+            print(f"Training: {round(self.training_count / total_count * 100, 2)}%")
+            print(f"Validation: {round(self.validation_count / total_count * 100, 2)}%")
+            print(f"Testing: {round(self.testing_count / total_count * 100, 2)}%")
 
 def getParameters():
     parser = argparse.ArgumentParser()
