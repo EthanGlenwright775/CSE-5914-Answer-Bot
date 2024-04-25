@@ -4,7 +4,7 @@ python3 ./QA-Pipeline/qa_pipeline.py \
     --article_count 4 \
     --thread_count 4 \
     --q_eval_threshold 1 \
-    --output_directory "QA-Output-v4" \
+    --output_directory "QA-Output" \
     --training_file "training.tsv" \
     --validation_file "validation.tsv" \
     --testing_file "testing.tsv" \
