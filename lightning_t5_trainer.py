@@ -264,6 +264,9 @@ def run_interface(model, args):
 	model.eval()
 	model.freeze()
 
+	# Output warning
+	print("User Warning: This model has been trained to mirror the context that it has been given. If the user inputs a hateful, biased, or blatantly false context, the model will use that output to generate its response. You are adivised to input contexts only from sources you trust and to not take all statements generated from the model as absolute truth.")
+
 	doc = input("Enter your document: ")
 	question = input("Enter your question: ")
 	while True:
